@@ -3,8 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "chapter02", "chapter02", "{39A2CF29-FB5D-41BF-83BE-30D809FF262C}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Example-EpsilonGreedy", "chapter02\Example-EpsilonGreedy\Example-EpsilonGreedy.fsproj", "{E707666A-6F7A-4962-8343-415AAE93D035}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E707666A-6F7A-4962-8343-415AAE93D035}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E707666A-6F7A-4962-8343-415AAE93D035}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E707666A-6F7A-4962-8343-415AAE93D035}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E707666A-6F7A-4962-8343-415AAE93D035}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E707666A-6F7A-4962-8343-415AAE93D035} = {39A2CF29-FB5D-41BF-83BE-30D809FF262C}
 	EndGlobalSection
 EndGlobal
