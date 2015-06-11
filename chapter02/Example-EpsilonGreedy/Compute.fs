@@ -63,16 +63,16 @@ let executeOneTask epsilon random _ =
     |> Seq.take steps
     |> Seq.toArray
 
-let computeAverageResults (valuesByTask : Value[][]) =
+let computeAverageResults (valuesOfTasks : Value[][]) =
 
-    let computeAverage step selection =
-        valuesByTask |> Seq.averageBy (fun values -> selection values.[step])
+    let average step selection =
+        valuesOfTasks |> Seq.averageBy (fun values -> selection values.[step])
 
-    let computeAverageResult step =
-        { AverageReward = computeAverage step (fun x -> x.Reward)
-          OptimalAction = computeAverage step (fun x -> if x.OptimalActionTaken then 1.0 else 0.0) }
+    let averageResult step =
+        { AverageReward = average step (fun x -> x.Reward)
+          OptimalAction = average step (fun x -> if x.OptimalActionTaken then 1.0 else 0.0) }
 
-    Array.init steps computeAverageResult
+    Array.init steps averageResult
 
 let computeResults epsilon random =
     executeOneTask epsilon random
