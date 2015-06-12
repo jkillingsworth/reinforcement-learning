@@ -35,6 +35,8 @@ let renderAverageReward path data =
     axis.Maximum <- 1000.0
     axis.MajorStep <- 250.0
     axis.MinorStep <- 50.0
+    axis.MajorGridlineColor <- OxyColors.LightGray
+    axis.MajorGridlineStyle <- LineStyle.Dot
     model.Axes.Add(axis)
 
     let axis = LinearAxis(Title = "Average Reward")
@@ -42,7 +44,11 @@ let renderAverageReward path data =
     axis.Minimum <- 0.0
     axis.Maximum <- 1.5
     axis.MajorStep <- 0.5
-    axis.MinorStep <- 0.25
+    axis.MinorStep <- 0.1
+    axis.MajorGridlineColor <- OxyColors.LightGray
+    axis.MajorGridlineStyle <- LineStyle.Dot
+    axis.MinorGridlineColor <- OxyColors.LightGray
+    axis.MinorGridlineStyle <- LineStyle.Dot
     axis.AxisTitleDistance <- 14.0
     model.Axes.Add(axis)
 
@@ -75,6 +81,8 @@ let renderOptimalAction path data =
     axis.Maximum <- 1000.0
     axis.MajorStep <- 250.0
     axis.MinorStep <- 50.0
+    axis.MajorGridlineColor <- OxyColors.LightGray
+    axis.MajorGridlineStyle <- LineStyle.Dot
     model.Axes.Add(axis)
 
     let axis = LinearAxis(Title = "Optimal Action")
@@ -83,6 +91,10 @@ let renderOptimalAction path data =
     axis.Maximum <- 1.0
     axis.MajorStep <- 0.2
     axis.MinorStep <- 0.1
+    axis.MajorGridlineColor <- OxyColors.LightGray
+    axis.MajorGridlineStyle <- LineStyle.Dot
+    axis.MinorGridlineColor <- OxyColors.LightGray
+    axis.MinorGridlineStyle <- LineStyle.Dot
     axis.StringFormat <- "P0"
     axis.AxisTitleDistance <- 14.0
     model.Axes.Add(axis)
