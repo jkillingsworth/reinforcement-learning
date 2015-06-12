@@ -6,7 +6,14 @@ open OxyPlot.Series
 
 //-------------------------------------------------------------------------------------------------
 
-let private convertToDataPoint i x = DataPoint(double i, x)
+let private defaultColorsToUseForPlots =
+
+    [| OxyColors.Red
+       OxyColors.Green
+       OxyColors.Blue
+       OxyColors.Orange
+       OxyColors.Purple
+       OxyColors.Teal |]
 
 let private exportToPng model path w h =
 
@@ -22,6 +29,7 @@ let renderAverageReward path data =
 
     let model = PlotModel()
 
+    model.DefaultColors <- defaultColorsToUseForPlots
     model.LegendBackground <- OxyColors.White
     model.LegendBorder <- OxyColors.Black
     model.LegendBorderThickness <- 1.0
@@ -57,7 +65,7 @@ let renderAverageReward path data =
         series.StrokeThickness <- 1.0
         model.Series.Add(series)
         snd item
-        |> Array.mapi convertToDataPoint
+        |> Array.mapi (fun i x -> DataPoint(double i, x))
         |> Array.iter series.Points.Add
 
     exportToPng model path 700 400
@@ -68,6 +76,7 @@ let renderOptimalAction path data =
 
     let model = PlotModel()
 
+    model.DefaultColors <- defaultColorsToUseForPlots
     model.LegendBackground <- OxyColors.White
     model.LegendBorder <- OxyColors.Black
     model.LegendBorderThickness <- 1.0
@@ -104,7 +113,7 @@ let renderOptimalAction path data =
         series.StrokeThickness <- 1.0
         model.Series.Add(series)
         snd item
-        |> Array.mapi convertToDataPoint
+        |> Array.mapi (fun i x -> DataPoint(double i, x))
         |> Array.iter series.Points.Add
 
     exportToPng model path 700 400
