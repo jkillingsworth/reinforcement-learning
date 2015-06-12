@@ -13,7 +13,7 @@ let n = 10
 type State =
     { ActionValuesActual : double[]
       ActionValuesApprox : double[]
-      AccumulatedSelects : int[] }
+      KthSelectionCounts : int[] }
 
 type Value =
     { Reward : double
@@ -43,19 +43,19 @@ let executeOneStep epsilon random state =
     let action = selectAction epsilon random state
     let reward = state.ActionValuesActual.[action] + (Sample.normal 0.0 1.0 random)
     let approx = state.ActionValuesApprox.[action]
-    let k' = 1 + state.AccumulatedSelects.[action]
+    let k = state.KthSelectionCounts.[action]
 
-    state.ActionValuesApprox.[action] <- approx + ((reward - approx) / double k')
-    state.AccumulatedSelects.[action] <- k'
+    state.ActionValuesApprox.[action] <- approx + ((reward - approx) / double k)
+    state.KthSelectionCounts.[action] <- k + 1
 
-    { Reward = reward; OptimalActionTaken = action = actionOptimal }, state
+    { Reward = reward; OptimalActionTaken = (action = actionOptimal) }, state
 
 let executeOneTask epsilon random _ =
 
     let state =
         { ActionValuesActual = Array.init n (fun i -> Sample.normal 0.0 1.0 random)
           ActionValuesApprox = Array.create n 0.0
-          AccumulatedSelects = Array.create n 0 }
+          KthSelectionCounts = Array.create n 1 }
 
     state
     |> Seq.unfold (executeOneStep epsilon random >> Some)
