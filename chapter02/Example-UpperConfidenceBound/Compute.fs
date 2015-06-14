@@ -31,16 +31,20 @@ let selectOptimalAction actionValues =
     |> Array.maxBy snd
     |> fst
 
-let selectAction epsilon random state =
-    match (Sample.continuousUniform 0.0 1.0 random) with
-    | x when x < epsilon
-        -> Sample.discreteUniform 0 (n - 1) random
-    | _ -> selectOptimalAction state.ActionValuesApprox
+let selectAction c random state =
+    let evaluate action value =
+        let na = double (state.CountsOfEachAction.[action])
+        let t' = double (state.CountsOfEachAction |> Array.sum) + 1.0
+        action, value + (c * (sqrt ((log t') / na)))
+    state.ActionValuesApprox
+    |> Array.mapi evaluate
+    |> Array.maxBy snd
+    |> fst
 
-let executeOneStep epsilon random state =
+let executeOneStep c random state =
 
     let actionOptimal = selectOptimalAction state.ActionValuesActual
-    let action = selectAction epsilon random state
+    let action = selectAction c random state
     let reward = state.ActionValuesActual.[action] + (Sample.normal 0.0 1.0 random)
     let approx = state.ActionValuesApprox.[action]
     let k' = 1 + state.CountsOfEachAction.[action]
@@ -50,7 +54,7 @@ let executeOneStep epsilon random state =
 
     { Reward = reward; OptimalActionTaken = (action = actionOptimal) }, state
 
-let executeOneTask epsilon random _ =
+let executeOneTask c random _ =
 
     let state =
         { ActionValuesActual = Array.init n (fun i -> Sample.normal 0.0 1.0 random)
@@ -58,7 +62,7 @@ let executeOneTask epsilon random _ =
           CountsOfEachAction = Array.create n 0 }
 
     state
-    |> Seq.unfold (executeOneStep epsilon random >> Some)
+    |> Seq.unfold (executeOneStep c random >> Some)
     |> Seq.take steps
     |> Seq.toArray
 
@@ -73,7 +77,7 @@ let computeAverageResults (valuesOfTasks : Value[][]) =
 
     Array.init steps averageResult
 
-let computeResults epsilon random =
-    executeOneTask epsilon random
+let computeResults c random =
+    executeOneTask c random
     |> Array.init tasks
     |> computeAverageResults
