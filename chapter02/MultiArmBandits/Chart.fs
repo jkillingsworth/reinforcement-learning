@@ -24,10 +24,14 @@ let private exportToPng model path w h =
     pngExporter.Height <- h
     pngExporter.Export(model, writeStream)
 
+let private formatAlpha = function
+    | Constant alpha -> sprintf "%.2f" alpha
+    | OneOverK -> "1/k"
+
 let private describe = function
-    | EpsilonGreedyAverage taskdef -> sprintf "Q1 = %.0f, ε = %.2f" taskdef.Q1 taskdef.Epsilon
-    | UpperConfidenceBound taskdef -> sprintf "Q1 = %.0f, c = %.2f" taskdef.Q1 taskdef.Confidence
-    | GradientAscentBandit taskdef -> sprintf "H1 = %.0f, α = %.2f" taskdef.H1 taskdef.Alpha
+    | EpsilonGreedyProcess x -> sprintf "Q1 = %.0f, α = %s, ε = %.2f" x.Q1 (formatAlpha x.Alpha) x.Epsilon
+    | UpperConfidenceBound x -> sprintf "Q1 = %.0f, α = %s, c = %.2f" x.Q1 (formatAlpha x.Alpha) x.Confidence
+    | GradientAscentBandit x -> sprintf "H1 = %.0f, α = %s, baseline = %b" x.H1 (formatAlpha x.Alpha) x.Baseline
 
 //-------------------------------------------------------------------------------------------------
 

@@ -26,12 +26,16 @@ type Result =
     { AverageReward : double
       OptimalAction : double }
 
-type EpsilonGreedyAverage = { Q1 : double; Epsilon : double }
-type UpperConfidenceBound = { Q1 : double; Confidence : double }
-type GradientAscentBandit = { H1 : double; Alpha : double; Baseline : bool }
+type Alpha =
+    | Constant of double
+    | OneOverK
+
+type EpsilonGreedyProcess = { Q1 : double; Alpha : Alpha; Epsilon : double }
+type UpperConfidenceBound = { Q1 : double; Alpha : Alpha; Confidence : double }
+type GradientAscentBandit = { H1 : double; Alpha : Alpha; Baseline : bool }
 
 type Taskdef =
-    | EpsilonGreedyAverage of EpsilonGreedyAverage
+    | EpsilonGreedyProcess of EpsilonGreedyProcess
     | UpperConfidenceBound of UpperConfidenceBound
     | GradientAscentBandit of GradientAscentBandit
 
@@ -43,7 +47,7 @@ let private selectActionOptimal actionValues =
     |> Array.maxBy snd
     |> fst
 
-let private selectActionEpsilonGreedyAverage taskdef random state =
+let private selectActionEpsilonGreedyProcess taskdef random state =
     match (Sample.continuousUniform 0.0 1.0 random) with
     | x when x < taskdef.Epsilon
         -> Sample.discreteUniform 0 (n - 1) random
@@ -64,24 +68,28 @@ let private selectActionGradientAscentBandit taskdef random state =
     Sample.discreteDistribution distribution random
 
 let private selectAction = function
-    | EpsilonGreedyAverage taskdef -> selectActionEpsilonGreedyAverage taskdef
+    | EpsilonGreedyProcess taskdef -> selectActionEpsilonGreedyProcess taskdef
     | UpperConfidenceBound taskdef -> selectActionUpperConfidenceBound taskdef
     | GradientAscentBandit taskdef -> selectActionGradientAscentBandit taskdef
 
 //-------------------------------------------------------------------------------------------------
 
-let private recomputeEstimationEpsilonGreedyAverage taskdef state action reward =
+let private recomputeAlpha state action = function
+    | Constant alpha -> alpha
+    | OneOverK -> 1.0 / double (1 + state.CountsOfEachAction.[action])
+
+let private recomputeEstimationEpsilonGreedyProcess (taskdef : EpsilonGreedyProcess) state action reward =
 
     let approx = state.EstimationCriteria.[action]
-    let k' = 1 + state.CountsOfEachAction.[action]
-    state.EstimationCriteria.[action] <- approx + ((reward - approx) / double k')
+    let alpha = recomputeAlpha state action taskdef.Alpha
+    state.EstimationCriteria.[action] <- approx + (alpha * (reward - approx))
     state
 
-let private recomputeEstimationUpperConfidenceBound taskdef state action reward =
+let private recomputeEstimationUpperConfidenceBound (taskdef : UpperConfidenceBound) state action reward =
 
     let approx = state.EstimationCriteria.[action]
-    let k' = 1 + state.CountsOfEachAction.[action]
-    state.EstimationCriteria.[action] <- approx + ((reward - approx) / double k')
+    let alpha = recomputeAlpha state action taskdef.Alpha
+    state.EstimationCriteria.[action] <- approx + (alpha * (reward - approx))
     state
 
 let private recomputeEstimationGradientAscentBandit taskdef state action reward =
@@ -89,11 +97,12 @@ let private recomputeEstimationGradientAscentBandit taskdef state action reward 
     let divisor = state.EstimationCriteria |> Array.map exp |> Array.sum
     let rewardBaseline = (reward + state.AccumulatedRewards) / double (1 + Array.sum state.CountsOfEachAction)
     let rewardBaseline = if taskdef.Baseline then rewardBaseline else 0.0
+    let alpha = recomputeAlpha state action taskdef.Alpha
 
     let perferenceUpdate preference pi = function
         | a when a = action
-            -> preference + taskdef.Alpha * (reward - rewardBaseline) * (1.0 - pi)
-        | _ -> preference - taskdef.Alpha * (reward - rewardBaseline) * pi
+            -> preference + alpha * (reward - rewardBaseline) * (1.0 - pi)
+        | _ -> preference - alpha * (reward - rewardBaseline) * pi
 
     for a = 0 to (n - 1) do
         let pi = exp state.EstimationCriteria.[a] / double divisor
@@ -103,7 +112,7 @@ let private recomputeEstimationGradientAscentBandit taskdef state action reward 
     state
 
 let private recomputeEstimation = function
-    | EpsilonGreedyAverage taskdef -> recomputeEstimationEpsilonGreedyAverage taskdef
+    | EpsilonGreedyProcess taskdef -> recomputeEstimationEpsilonGreedyProcess taskdef
     | UpperConfidenceBound taskdef -> recomputeEstimationUpperConfidenceBound taskdef
     | GradientAscentBandit taskdef -> recomputeEstimationGradientAscentBandit taskdef
 
@@ -126,7 +135,7 @@ let private executeOneTask taskdef random _ =
 
     let initialEstimation =
         match taskdef with
-        | EpsilonGreedyAverage taskdef -> taskdef.Q1
+        | EpsilonGreedyProcess taskdef -> taskdef.Q1
         | UpperConfidenceBound taskdef -> taskdef.Q1
         | GradientAscentBandit taskdef -> taskdef.H1
 

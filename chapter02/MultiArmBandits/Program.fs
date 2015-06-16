@@ -6,9 +6,9 @@ open Bandits
 //-------------------------------------------------------------------------------------------------
 
 let taskdefs =
-    [ EpsilonGreedyAverage { Q1 = 0.0; Epsilon = 0.00 }
-      EpsilonGreedyAverage { Q1 = 0.0; Epsilon = 0.01 }
-      EpsilonGreedyAverage { Q1 = 0.0; Epsilon = 0.10 } ]
+    [ EpsilonGreedyProcess { Q1 = 0.0; Alpha = OneOverK; Epsilon = 0.00 }
+      EpsilonGreedyProcess { Q1 = 0.0; Alpha = OneOverK; Epsilon = 0.01 }
+      EpsilonGreedyProcess { Q1 = 0.0; Alpha = OneOverK; Epsilon = 0.10 } ]
 
 let randomng = Random()
 let outcomes =
