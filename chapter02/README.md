@@ -1,6 +1,6 @@
 ## Multi-arm Bandits
 
-Chapter 2
+*Chapter 2*
 
 #### Epsilon Greedy Process
 
