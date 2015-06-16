@@ -54,7 +54,6 @@ let private renderChart data configureAxisY =
     axis.MajorGridlineStyle <- LineStyle.Dot
     axis.MinorGridlineColor <- OxyColors.LightGray
     axis.MinorGridlineStyle <- LineStyle.Dot
-    axis.AxisTitleDistance <- 14.0
     model.Axes.Add(axis)
     configureAxisY axis
 
@@ -87,6 +86,7 @@ let renderAverageReward path data =
         axis.Maximum <- Bandits.meanActionValue + 1.6
         axis.MajorStep <- 0.5
         axis.MinorStep <- 0.1
+        axis.AxisTitleDistance <- 22.0
         axis.StringFormat <- "F1"
 
     configureAxisY
@@ -101,6 +101,7 @@ let renderOptimalAction path data =
         axis.Maximum <- 1.0
         axis.MajorStep <- 0.2
         axis.MinorStep <- 0.1
+        axis.AxisTitleDistance <- 4.0
         axis.StringFormat <- "P0"
 
     configureAxisY
