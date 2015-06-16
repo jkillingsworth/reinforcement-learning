@@ -40,7 +40,7 @@ let private renderChart data configureAxisY =
     let axis = new LinearAxis()
     axis.Title <- "Steps"
     axis.Position <- AxisPosition.Bottom
-    axis.Minimum <- 0.0
+    axis.Minimum <- 0.0 - double Bandits.steps / 100.0
     axis.Maximum <- double Bandits.steps
     axis.MajorStep <- double Bandits.steps / 4.0
     axis.MinorStep <- double Bandits.steps / 20.0
@@ -83,7 +83,7 @@ let renderAverageReward path data =
 
     let configureAxisY (axis : LinearAxis) =
         axis.Title <- "Average Reward"
-        axis.Minimum <- Bandits.meanActionValue
+        axis.Minimum <- Bandits.meanActionValue - 0.1
         axis.Maximum <- Bandits.meanActionValue + 1.6
         axis.MajorStep <- 0.5
         axis.MinorStep <- 0.1
