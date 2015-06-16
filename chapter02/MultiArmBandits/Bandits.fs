@@ -78,21 +78,14 @@ let private recomputeAlpha state action = function
     | Constant alpha -> alpha
     | OneOverK -> 1.0 / double (1 + state.CountsOfEachAction.[action])
 
-let private recomputeEstimationEpsilonGreedyProcess (taskdef : EpsilonGreedyProcess) state action reward =
+let private recomputeActionValue alpha state action reward =
 
-    let approx = state.EstimationCriteria.[action]
-    let alpha = recomputeAlpha state action taskdef.Alpha
-    state.EstimationCriteria.[action] <- approx + (alpha * (reward - approx))
+    let value = state.EstimationCriteria.[action]
+    let alpha = recomputeAlpha state action alpha
+    state.EstimationCriteria.[action] <- value + alpha * (reward - value)
     state
 
-let private recomputeEstimationUpperConfidenceBound (taskdef : UpperConfidenceBound) state action reward =
-
-    let approx = state.EstimationCriteria.[action]
-    let alpha = recomputeAlpha state action taskdef.Alpha
-    state.EstimationCriteria.[action] <- approx + (alpha * (reward - approx))
-    state
-
-let private recomputeEstimationGradientAscentBandit taskdef state action reward =
+let private recomputePreferences taskdef state action reward =
 
     let divisor = state.EstimationCriteria |> Array.map exp |> Array.sum
     let rewardBaseline = (reward + state.AccumulatedRewards) / double (1 + Array.sum state.CountsOfEachAction)
@@ -112,9 +105,9 @@ let private recomputeEstimationGradientAscentBandit taskdef state action reward 
     state
 
 let private recomputeEstimation = function
-    | EpsilonGreedyProcess taskdef -> recomputeEstimationEpsilonGreedyProcess taskdef
-    | UpperConfidenceBound taskdef -> recomputeEstimationUpperConfidenceBound taskdef
-    | GradientAscentBandit taskdef -> recomputeEstimationGradientAscentBandit taskdef
+    | EpsilonGreedyProcess taskdef -> recomputeActionValue taskdef.Alpha
+    | UpperConfidenceBound taskdef -> recomputeActionValue taskdef.Alpha
+    | GradientAscentBandit taskdef -> recomputePreferences taskdef
 
 //-------------------------------------------------------------------------------------------------
 
