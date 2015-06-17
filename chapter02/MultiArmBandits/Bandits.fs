@@ -74,40 +74,47 @@ let private selectAction = function
 
 //-------------------------------------------------------------------------------------------------
 
+module private Array =
+    let mapUpdate k update = Array.mapi (fun i x -> if i = k then update x else x)
+
 let private recomputeAlpha state action = function
     | Constant alpha -> alpha
     | OneOverK -> 1.0 / double (1 + state.CountsOfEachAction.[action])
 
 let private recomputeActionValue alpha state action reward =
 
-    let value = state.EstimationCriteria.[action]
     let alpha = recomputeAlpha state action alpha
-    state.EstimationCriteria.[action] <- value + alpha * (reward - value)
-    state
+    let calculate value = value + alpha * (reward - value)
+    state.EstimationCriteria |> Array.mapUpdate action calculate
 
 let private recomputePreferences taskdef state action reward =
 
-    let divisor = state.EstimationCriteria |> Array.map exp |> Array.sum
-    let rewardBaseline = (reward + state.AccumulatedRewards) / double (1 + Array.sum state.CountsOfEachAction)
-    let rewardBaseline = if taskdef.Baseline then rewardBaseline else 0.0
     let alpha = recomputeAlpha state action taskdef.Alpha
+    let baseline = (reward + state.AccumulatedRewards) / double (1 + Array.sum state.CountsOfEachAction)
+    let baseline = if taskdef.Baseline then baseline else 0.0
+    let divisor = state.EstimationCriteria |> Array.map exp |> Array.sum
 
-    let perferenceUpdate preference pi = function
-        | a when a = action
-            -> preference + alpha * (reward - rewardBaseline) * (1.0 - pi)
-        | _ -> preference - alpha * (reward - rewardBaseline) * pi
+    let calculate preference pi = function
+        | a' when a' = action
+            -> preference + alpha * (reward - baseline) * (1.0 - pi)
+        | _ -> preference - alpha * (reward - baseline) * pi
 
-    for a = 0 to (n - 1) do
-        let pi = exp state.EstimationCriteria.[a] / double divisor
-        let preference = state.EstimationCriteria.[a]
-        state.EstimationCriteria.[a] <- perferenceUpdate preference pi a
+    let calculate a' preference =
+        let pi = exp preference / divisor
+        calculate preference pi a'
 
-    state
+    state.EstimationCriteria |> Array.mapi calculate
 
 let private recomputeEstimation = function
     | EpsilonGreedyProcess taskdef -> recomputeActionValue taskdef.Alpha
     | UpperConfidenceBound taskdef -> recomputeActionValue taskdef.Alpha
     | GradientAscentBandit taskdef -> recomputePreferences taskdef
+
+let private recomputeCountsOfEachAction state action =
+    state.CountsOfEachAction |> Array.mapUpdate action (fun count -> count + 1)
+
+let private recomputeAccumulatedRewards state reward =
+    state.AccumulatedRewards + reward
 
 //-------------------------------------------------------------------------------------------------
 
@@ -116,13 +123,14 @@ let private executeOneStep taskdef random state =
     let actionOptimal = selectActionOptimal state.ActualActionValues
     let action = selectAction taskdef random state
     let reward = state.ActualActionValues.[action] + (Sample.normal 0.0 1.0 random)
-    let state = recomputeEstimation taskdef state action reward
 
-    state.CountsOfEachAction.[action] <- 1 + state.CountsOfEachAction.[action]
+    { Reward = reward
+      OptimalActionTaken = (action = actionOptimal) },
 
-    let state = { state with AccumulatedRewards = reward + state.AccumulatedRewards }
-    let value = { Reward = reward; OptimalActionTaken = (action = actionOptimal) }
-    value, state
+    { ActualActionValues = state.ActualActionValues
+      EstimationCriteria = recomputeEstimation taskdef state action reward
+      CountsOfEachAction = recomputeCountsOfEachAction state action
+      AccumulatedRewards = recomputeAccumulatedRewards state reward }
 
 let private executeOneTask taskdef random _ =
 
