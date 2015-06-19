@@ -18,7 +18,14 @@ let private exportToPng path w h model =
 
 let renderGrid path data =
 
+    let rows = data |> Array2D.length1
+    let cols = data |> Array2D.length2
+    let data = Array2D.init cols rows (fun m n -> data.[n, m])
+
     let model = PlotModel()
+
+    model.Padding <- OxyThickness(1.0, 1.0, 1.0, 1.0)
+    model.PlotType <- PlotType.Cartesian
 
     let axis = LinearColorAxis()
     axis.Palette <- OxyPalettes.Jet(200)
@@ -27,8 +34,8 @@ let renderGrid path data =
     let axis = new LinearAxis()
     axis.Position <- AxisPosition.Top
     axis.IsAxisVisible <- false
-    axis.Minimum <- 0.0 - 0.5
-    axis.Maximum <- 4.0 + 0.5
+    axis.Minimum <- 0.0
+    axis.Maximum <- double cols
     axis.StartPosition <- 0.0
     axis.EndPosition <- 1.0
     model.Axes.Add(axis)
@@ -36,21 +43,21 @@ let renderGrid path data =
     let axis = LinearAxis()
     axis.Position <- AxisPosition.Left
     axis.IsAxisVisible <- false
-    axis.Minimum <- 0.0 - 0.5
-    axis.Maximum <- 4.0 + 0.5
+    axis.Minimum <- 0.0
+    axis.Maximum <- double rows
     axis.StartPosition <- 1.0
     axis.EndPosition <- 0.0
     model.Axes.Add(axis)
 
     let series = HeatMapSeries()
-    series.Data <- data |> Array2D.mapi (fun m n _ -> data.[n, m])
-    series.X0 <- 0.0
-    series.X1 <- 4.0
-    series.Y0 <- 0.0
-    series.Y1 <- 4.0
+    series.Data <- data
+    series.X0 <- 0.5
+    series.X1 <- double cols - 0.5
+    series.Y0 <- 0.5
+    series.Y1 <- double rows - 0.5
     series.Interpolate <- false
     series.LabelFontSize <- 0.25
     series.LabelFormatString <- "F1"
     model.Series.Add(series)
 
-    model |> exportToPng path 400 400
+    model |> exportToPng path 300 300
