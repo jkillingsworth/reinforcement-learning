@@ -24,7 +24,7 @@ let renderGrid path data =
 
     let model = PlotModel()
 
-    model.Padding <- OxyThickness(1.0, 1.0, 1.0, 1.0)
+    model.Padding <- OxyThickness(0.0, 0.0, 1.0, 1.0)
     model.PlotType <- PlotType.Cartesian
 
     let axis = LinearColorAxis()
