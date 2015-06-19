@@ -1,0 +1,90 @@
+﻿module Compute
+
+//-------------------------------------------------------------------------------------------------
+
+type Action =
+    | North
+    | South
+    | East
+    | West
+
+type Cell =
+    | Special of (int * int) * double
+    | Regular
+
+//-------------------------------------------------------------------------------------------------
+
+let private initializeCells m n =
+    match m, n with
+    | 0, 1 -> Special ((4, 1), +10.0)
+    | 0, 3 -> Special ((2, 3), +5.0)
+    | _, _ -> Regular
+
+let cells = Array2D.init 5 5 initializeCells
+
+let rewardRegular =  0.0
+let rewardOffGrid = -1.0
+
+let gamma = 0.9
+
+//-------------------------------------------------------------------------------------------------
+
+let private pi = function
+    | North -> 0.25
+    | South -> 0.25
+    | East  -> 0.25
+    | West  -> 0.25
+
+let private offset = function
+    | North -> (-1, 0)
+    | South -> (+1, 0)
+    | East  -> (0, +1)
+    | West  -> (0, -1)
+
+let private move action (m, n) =
+    let i, j = offset action
+    m + i, n + j
+
+let private actionGoesOffGrid action (m, n) =
+    match move action (m, n) with
+    | m, n when m < 0 -> true
+    | m, n when n < 0 -> true
+    | m, n when m >= Array2D.length1 cells -> true
+    | m, n when n >= Array2D.length2 cells -> true
+    | _ -> false
+
+let private evaluateActionRegular m n action =
+    match m, n with
+    | m, n when actionGoesOffGrid action (m, n) -> rewardOffGrid, (m, n)
+    | m, n -> rewardRegular, move action (m, n)
+
+let private evaluateAction m n action =
+    let cell = cells.[m, n]
+    match cell with
+    | Special ((m', n'), reward) -> reward, (m', n')
+    | Regular -> evaluateActionRegular m n action
+
+//-------------------------------------------------------------------------------------------------
+
+let private executeOneStep (values : double[,]) =
+
+    let actions = [ North; South; East; West ]
+
+    let calculate m n action =
+        let reward, (m', n') = evaluateAction m n action
+        pi action * (reward + gamma * values.[m', n'])
+
+    let calculate m n _ = actions |> Seq.sumBy (calculate m n)
+
+    values
+    |> Array2D.mapi calculate
+    |> (fun x -> x, x)
+
+let generateValues initialValue =
+
+    let rows = cells |> Array2D.length1
+    let cols = cells |> Array2D.length2
+    let values = Array2D.create rows cols initialValue
+
+    seq { yield values;
+          yield! values |> Seq.unfold (executeOneStep >> Some) }
