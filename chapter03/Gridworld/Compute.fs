@@ -87,9 +87,8 @@ let private executeOneStep (values : double[,]) =
 
     let calculate m n _ = actions |> Seq.sumBy (calculate m n)
 
-    values
-    |> Array2D.mapi calculate
-    |> (fun x -> x, x)
+    values,
+    values |> Array2D.mapi calculate
 
 let generateValues initialValue =
 

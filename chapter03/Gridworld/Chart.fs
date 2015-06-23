@@ -60,4 +60,5 @@ let renderGrid path data =
     series.LabelFormatString <- "F1"
     model.Series.Add(series)
 
-    model |> exportToPng path 300 300
+    let scale = 60
+    model |> exportToPng path (cols * scale) (rows * scale)
