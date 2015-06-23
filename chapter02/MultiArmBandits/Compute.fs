@@ -1,4 +1,4 @@
-﻿module Bandits
+﻿module Compute
 
 open MathNet.Numerics.Distributions
 open Sample

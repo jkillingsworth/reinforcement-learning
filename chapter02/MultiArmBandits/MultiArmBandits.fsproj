@@ -19,9 +19,9 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <Tailcalls>true</Tailcalls>
-    <BaseOutputPath>..\..\build\bin</BaseOutputPath>
+    <BaseOutputPath>..\..\build\chapter02\bin</BaseOutputPath>
     <OutputPath>$(BaseOutputPath)\$(Platform)\$(Configuration)\</OutputPath>
-    <BaseIntermediateOutputPath>..\..\build\obj</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\..\build\chapter02\obj</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Platform)\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
@@ -34,9 +34,9 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <Tailcalls>true</Tailcalls>
-    <BaseOutputPath>..\..\build\bin</BaseOutputPath>
+    <BaseOutputPath>..\..\build\chapter02\bin</BaseOutputPath>
     <OutputPath>$(BaseOutputPath)\$(Platform)\$(Configuration)\</OutputPath>
-    <BaseIntermediateOutputPath>..\..\build\obj</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\..\build\chapter02\obj</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Platform)\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
@@ -65,7 +65,7 @@
     <None Include="App.config" />
     <Content Include="packages.config" />
     <Compile Include="Sample.fs" />
-    <Compile Include="Bandits.fs" />
+    <Compile Include="Compute.fs" />
     <Compile Include="Chart.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

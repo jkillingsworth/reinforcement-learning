@@ -3,7 +3,7 @@
 open OxyPlot
 open OxyPlot.Axes
 open OxyPlot.Series
-open Bandits
+open Compute
 
 //-------------------------------------------------------------------------------------------------
 
@@ -40,10 +40,10 @@ let private renderChart data configureAxisY =
     let axis = new LinearAxis()
     axis.Title <- "Steps"
     axis.Position <- AxisPosition.Bottom
-    axis.Minimum <- 0.0 - double Bandits.steps / 100.0
-    axis.Maximum <- double Bandits.steps
-    axis.MajorStep <- double Bandits.steps / 4.0
-    axis.MinorStep <- double Bandits.steps / 20.0
+    axis.Minimum <- 0.0 - double Compute.steps / 100.0
+    axis.Maximum <- double Compute.steps
+    axis.MajorStep <- double Compute.steps / 4.0
+    axis.MinorStep <- double Compute.steps / 20.0
     axis.MajorGridlineColor <- OxyColors.LightGray
     axis.MajorGridlineStyle <- LineStyle.Dot
     model.Axes.Add(axis)
@@ -82,8 +82,8 @@ let renderAverageReward path data =
 
     let configureAxisY (axis : LinearAxis) =
         axis.Title <- "Average Reward"
-        axis.Minimum <- Bandits.meanActionValue - 0.1
-        axis.Maximum <- Bandits.meanActionValue + 1.6
+        axis.Minimum <- Compute.meanActionValue - 0.1
+        axis.Maximum <- Compute.meanActionValue + 1.6
         axis.MajorStep <- 0.5
         axis.MinorStep <- 0.1
         axis.AxisTitleDistance <- 22.0

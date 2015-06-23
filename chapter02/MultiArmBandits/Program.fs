@@ -1,7 +1,7 @@
 ﻿module Program
 
 open System
-open Bandits
+open Compute
 
 //-------------------------------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@ let taskdefs =
 
 let randomng = Random()
 let outcomes =
-    taskdefs |> List.map (fun (taskdef) -> taskdef, Bandits.computeResults taskdef randomng)
+    taskdefs |> List.map (fun (taskdef) -> taskdef, Compute.computeResults taskdef randomng)
 
 let map selection =
     outcomes |> List.map (fun (taskdef, results) -> taskdef, results |> Array.map selection)
