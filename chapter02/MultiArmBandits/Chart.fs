@@ -7,6 +7,14 @@ open Compute
 
 //-------------------------------------------------------------------------------------------------
 
+let private exportToPng path w h model =
+
+    use writeStream = System.IO.File.OpenWrite(path)
+    let pngExporter = OxyPlot.WindowsForms.PngExporter()
+    pngExporter.Width <- w
+    pngExporter.Height <- h
+    pngExporter.Export(model, writeStream)
+
 let private defaultColorsToUseForPlots =
 
     [| OxyColors.Red
@@ -25,7 +33,7 @@ let private formatTitle = function
     | UpperConfidenceBound x -> sprintf "Q1 = %.0f, α = %s, c = %.2f" x.Q1 (formatAlpha x.Alpha) x.Confidence
     | GradientAscentBandit x -> sprintf "H1 = %.0f, α = %s, baseline = %b" x.H1 (formatAlpha x.Alpha) x.Baseline
 
-let private renderChart data configureAxisY =
+let private renderChart path data configureAxisY =
 
     let model = PlotModel()
 
@@ -66,15 +74,7 @@ let private renderChart data configureAxisY =
         |> Array.iter series.Points.Add
         model.Series.Add(series)
 
-    model
-
-let private exportToPng path w h model =
-
-    use writeStream = System.IO.File.OpenWrite(path)
-    let pngExporter = OxyPlot.WindowsForms.PngExporter()
-    pngExporter.Width <- w
-    pngExporter.Height <- h
-    pngExporter.Export(model, writeStream)
+    model |> exportToPng path 700 400
 
 //-------------------------------------------------------------------------------------------------
 
@@ -89,9 +89,7 @@ let renderAverageReward path data =
         axis.AxisTitleDistance <- 22.0
         axis.StringFormat <- "F1"
 
-    configureAxisY
-    |> renderChart data
-    |> exportToPng path 700 400
+    renderChart path data configureAxisY
 
 let renderOptimalAction path data =
 
@@ -104,6 +102,4 @@ let renderOptimalAction path data =
         axis.AxisTitleDistance <- 4.0
         axis.StringFormat <- "P0"
 
-    configureAxisY
-    |> renderChart data
-    |> exportToPng path 700 400
+    renderChart path data configureAxisY

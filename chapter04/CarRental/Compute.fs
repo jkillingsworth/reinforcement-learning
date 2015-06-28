@@ -109,10 +109,9 @@ let private executeOneStep (policy, values) =
     let values' = improveValues policy values
     let policy' = improvePolicy policy values'
 
-    (policy', values'),
     (policy', values')
 
-let generatePolicies () =
+let generateResults () =
 
     let rows = maxCarsToHold1 + 1
     let cols = maxCarsToHold2 + 1
@@ -120,5 +119,8 @@ let generatePolicies () =
     let values = Array2D.create rows cols 0.0
     let policy = Array2D.create rows cols 0
 
-    seq { yield (policy, values)
-          yield! Seq.unfold (executeOneStep >> Some) (policy, values) }
+    let pairResult x = Some (x,x)
+    let generate f x =
+        seq { yield x; yield! x |> Seq.unfold (f >> pairResult) }
+
+    generate executeOneStep (policy, values)

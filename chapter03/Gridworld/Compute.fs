@@ -87,14 +87,17 @@ let private executeOneStep (values : double[,]) =
 
     let calculate m n _ = actions |> Seq.sumBy (calculate m n)
 
-    values,
     values |> Array2D.mapi calculate
 
-let generateValues initialValue =
+let generateResults initialValue =
 
     let rows = cells |> Array2D.length1
     let cols = cells |> Array2D.length2
 
-    initialValue
-    |> Array2D.create rows cols
-    |> Seq.unfold (executeOneStep >> Some)
+    let values = Array2D.create rows cols initialValue
+
+    let pairResult x = Some (x,x)
+    let generate f x =
+        seq { yield x; yield! x |> Seq.unfold (f >> pairResult) }
+
+    generate executeOneStep values
