@@ -29,6 +29,8 @@ let renderGrid path data =
 
     let axis = LinearColorAxis()
     axis.Palette <- OxyPalettes.Jet(200)
+    axis.Minimum <- -22.0
+    axis.Maximum <- +22.0
     model.Axes.Add(axis)
 
     let axis = new LinearAxis()
