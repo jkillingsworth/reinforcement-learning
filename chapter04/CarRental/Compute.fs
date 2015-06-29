@@ -96,9 +96,9 @@ let private improvePolicy (policy : int[,]) (values : double[,]) =
     
     let mapping n1 n2 _ =
         actions
-        |> Seq.map (fun a -> a, computeActionValue values (n1, n2) a)
-        |> Seq.maxBy snd
-        |> fst
+        |> Seq.where (fun a -> a <= +n1)
+        |> Seq.where (fun a -> a >= -n2)
+        |> Seq.maxBy (computeActionValue values (n1, n2))
     
     policy |> Array2D.mapi mapping
 

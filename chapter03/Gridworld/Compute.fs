@@ -66,13 +66,11 @@ let private piEquiprobable values m n = function
     | West  -> 0.25
 
 let private piOptimal (values : double[,]) m n action =
-    let mapping a =
+    let projection a =
         let _, (m', n') = evaluateAction m n a
-        values.[m', n'], a
+        values.[m', n']
     actions
-    |> List.map mapping
-    |> List.maxBy fst
-    |> snd
+    |> List.maxBy projection
     |> (fun a -> if a = action then 1.0 else 0.0)
 
 let private pi = match policy with Equiprobable -> piEquiprobable | Optimal -> piOptimal
