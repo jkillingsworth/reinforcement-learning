@@ -36,34 +36,34 @@ This represents the solution to Exercise 4.2 from the book:
 
 ![Exercise 4.2 - Gridworld (k = 1000)](images/Exercise-4.2-Gridworld-k1000.png)
 
-#### Car Rental
+#### Jack's Car Rental
 
 This is a reproduction of Figure 4.4 from the book:
 
 * Iteration 0
 
-![Figure 4.4 - Car Rental Policy (Iteration 0)](images/Figure-4.4-CarRental-Policy-0.png)
-![Figure 4.4 - Car Rental Values (Iteration 0)](images/Figure-4.4-CarRental-Values-0.png)
+![Figure 4.4 - Jack's Car Rental Policy (Iteration 0)](images/Figure-4.4-JacksCarRental-Policy-0.png)
+![Figure 4.4 - Jack's Car Rental Values (Iteration 0)](images/Figure-4.4-JacksCarRental-Values-0.png)
 
 * Iteration 1
 
-![Figure 4.4 - Car Rental Policy (Iteration 1)](images/Figure-4.4-CarRental-Policy-1.png)
-![Figure 4.4 - Car Rental Values (Iteration 1)](images/Figure-4.4-CarRental-Values-1.png)
+![Figure 4.4 - Jack's Car Rental Policy (Iteration 1)](images/Figure-4.4-JacksCarRental-Policy-1.png)
+![Figure 4.4 - Jack's Car Rental Values (Iteration 1)](images/Figure-4.4-JacksCarRental-Values-1.png)
 
 * Iteration 2
 
-![Figure 4.4 - Car Rental Policy (Iteration 2)](images/Figure-4.4-CarRental-Policy-2.png)
-![Figure 4.4 - Car Rental Values (Iteration 2)](images/Figure-4.4-CarRental-Values-2.png)
+![Figure 4.4 - Jack's Car Rental Policy (Iteration 2)](images/Figure-4.4-JacksCarRental-Policy-2.png)
+![Figure 4.4 - Jack's Car Rental Values (Iteration 2)](images/Figure-4.4-JacksCarRental-Values-2.png)
 
 * Iteration 3
 
-![Figure 4.4 - Car Rental Policy (Iteration 3)](images/Figure-4.4-CarRental-Policy-3.png)
-![Figure 4.4 - Car Rental Values (Iteration 3)](images/Figure-4.4-CarRental-Values-3.png)
+![Figure 4.4 - Jack's Car Rental Policy (Iteration 3)](images/Figure-4.4-JacksCarRental-Policy-3.png)
+![Figure 4.4 - Jack's Car Rental Values (Iteration 3)](images/Figure-4.4-JacksCarRental-Values-3.png)
 
 * Iteration 4
 
-![Figure 4.4 - Car Rental Policy (Iteration 4)](images/Figure-4.4-CarRental-Policy-4.png)
-![Figure 4.4 - Car Rental Values (Iteration 4)](images/Figure-4.4-CarRental-Values-4.png)
+![Figure 4.4 - Jack's Car Rental Policy (Iteration 4)](images/Figure-4.4-JacksCarRental-Policy-4.png)
+![Figure 4.4 - Jack's Car Rental Values (Iteration 4)](images/Figure-4.4-JacksCarRental-Values-4.png)
 
 #### Gambler's Problem
 

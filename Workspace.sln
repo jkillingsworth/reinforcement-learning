@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "chapter04", "chapter04", "{
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Gridworld", "chapter04\Gridworld\Gridworld.fsproj", "{CE0A0C3A-ACD4-4256-B224-EBD04F4C365E}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CarRental", "chapter04\CarRental\CarRental.fsproj", "{5152F79E-F4AF-45AC-BE1D-D69618BC0AB2}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "JacksCarRental", "chapter04\JacksCarRental\JacksCarRental.fsproj", "{5152F79E-F4AF-45AC-BE1D-D69618BC0AB2}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GamblersProblem", "chapter04\GamblersProblem\GamblersProblem.fsproj", "{DCE93998-F17A-416F-B7B7-5DEEA533F0A1}"
 EndProject
