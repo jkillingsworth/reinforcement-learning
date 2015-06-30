@@ -17,6 +17,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Gridworld", "chapter04\Grid
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CarRental", "chapter04\CarRental\CarRental.fsproj", "{5152F79E-F4AF-45AC-BE1D-D69618BC0AB2}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GamblersProblem", "chapter04\GamblersProblem\GamblersProblem.fsproj", "{DCE93998-F17A-416F-B7B7-5DEEA533F0A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{5152F79E-F4AF-45AC-BE1D-D69618BC0AB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5152F79E-F4AF-45AC-BE1D-D69618BC0AB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5152F79E-F4AF-45AC-BE1D-D69618BC0AB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCE93998-F17A-416F-B7B7-5DEEA533F0A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCE93998-F17A-416F-B7B7-5DEEA533F0A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCE93998-F17A-416F-B7B7-5DEEA533F0A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCE93998-F17A-416F-B7B7-5DEEA533F0A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,5 +54,6 @@ Global
 		{248BD1B0-E2AB-4D03-8AEF-1C86AFFF3C16} = {1A53CEAC-E0A7-4D06-8A8D-328ACC2DCDEC}
 		{CE0A0C3A-ACD4-4256-B224-EBD04F4C365E} = {C7500817-6CFF-498B-8D7F-6CF9FD3B4B31}
 		{5152F79E-F4AF-45AC-BE1D-D69618BC0AB2} = {C7500817-6CFF-498B-8D7F-6CF9FD3B4B31}
+		{DCE93998-F17A-416F-B7B7-5DEEA533F0A1} = {C7500817-6CFF-498B-8D7F-6CF9FD3B4B31}
 	EndGlobalSection
 EndGlobal
