@@ -64,3 +64,28 @@ This is a reproduction of Figure 4.4 from the book:
 
 ![Figure 4.4 - Car Rental Policy (Iteration 4)](images/Figure-4.4-CarRental-Policy-4.png)
 ![Figure 4.4 - Car Rental Values (Iteration 4)](images/Figure-4.4-CarRental-Values-4.png)
+
+#### Gambler's Problem
+
+This is a reproduction of Figure 4.6 from the book:
+
+* Sweep 0
+
+![Figure 4.6 - Gambler's Problem Values (Sweep 0)](images/Figure-4.6-GamblersProblem-Values-00.png)
+
+* Sweep 1
+
+![Figure 4.6 - Gambler's Problem Values (Sweep 1)](images/Figure-4.6-GamblersProblem-Values-01.png)
+
+* Sweep 2
+
+![Figure 4.6 - Gambler's Problem Values (Sweep 2)](images/Figure-4.6-GamblersProblem-Values-02.png)
+
+* Sweep 3
+
+![Figure 4.6 - Gambler's Problem Values (Sweep 3)](images/Figure-4.6-GamblersProblem-Values-03.png)
+
+* Sweep 32
+
+![Figure 4.6 - Gambler's Problem Values (Sweep 32)](images/Figure-4.6-GamblersProblem-Values-32.png)
+![Figure 4.6 - Gambler's Problem Policy (Sweep 32)](images/Figure-4.6-GamblersProblem-Policy-32.png)
