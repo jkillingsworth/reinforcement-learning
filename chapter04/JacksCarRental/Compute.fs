@@ -20,6 +20,10 @@ let rewardMoveCar = -2.0
 let gamma = 0.9
 let theta = 0.0000001
 
+let employeeNearLocation2 = true
+let maxCarsBeforeOverflow = 10
+let rewardOverflowParking = -4.0
+
 //-------------------------------------------------------------------------------------------------
 
 let private actions =
@@ -65,7 +69,12 @@ let private computeActionValue (values : double[,]) (n1, n2) action =
     let action = max action -n2
     let n1 = n1 - action
     let n2 = n2 + action
-    let rAction = rewardMoveCar * double (abs action)
+
+    let actionsToPayFor = if employeeNearLocation2 && action > 0 then action - 1 else action
+    let rAction = rewardMoveCar * double (abs actionsToPayFor)
+    let rParking1 = if n1 > maxCarsBeforeOverflow then rewardOverflowParking else 0.0
+    let rParking2 = if n2 > maxCarsBeforeOverflow then rewardOverflowParking else 0.0
+    let rOvernight = rAction + rParking1 + rParking2
 
     seq { for n1' = 0 to maxCarsToHold1 do
           for n2' = 0 to maxCarsToHold2 do
@@ -77,7 +86,7 @@ let private computeActionValue (values : double[,]) (n1, n2) action =
           let p = p1 * p2
           yield p * (r + gamma * values.[n1', n2']) }
     |> Seq.sum
-    |> (+) rAction
+    |> (+) rOvernight
 
 let rec private improveValues (policy : int[,]) (values : double[,]) =
 

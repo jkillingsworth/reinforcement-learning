@@ -65,6 +65,13 @@ This is a reproduction of Figure 4.4 from the book:
 ![Figure 4.4 - Jack's Car Rental (Iteration 4) - Policy](images/Figure-4.4-JacksCarRental-Policy-4.png)
 ![Figure 4.4 - Jack's Car Rental (Iteration 4) - Values](images/Figure-4.4-JacksCarRental-Values-4.png)
 
+This represents the solution to Exercise 4.5 from the book:
+
+* Iteration 4
+
+![Exercise 4.5 - Jack's Car Rental (Iteration 4) - Policy](images/Exercise-4.5-JacksCarRental-Policy-4.png)
+![Exercise 4.5 - Jack's Car Rental (Iteration 4) - Values](images/Exercise-4.5-JacksCarRental-Values-4.png)
+
 #### Gambler's Problem
 
 This is a reproduction of Figure 4.6 from the book:
