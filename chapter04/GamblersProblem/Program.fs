@@ -4,7 +4,7 @@ open System
 
 //-------------------------------------------------------------------------------------------------
 
-let values = Compute.computeValues 32
+let values  = Compute.computeValues 1000
 let policy = Compute.computePolicy values
 
 Chart.renderValues @"..\..\..\GamblersProblem-Values.png" values

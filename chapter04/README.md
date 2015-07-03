@@ -96,3 +96,15 @@ This is a reproduction of Figure 4.6 from the book:
 
 ![Figure 4.6 - Gambler's Problem (Sweep 32) - Values](images/Figure-4.6-GamblersProblem-Values-32.png)
 ![Figure 4.6 - Gambler's Problem (Sweep 32) - Policy](images/Figure-4.6-GamblersProblem-Policy-32.png)
+
+This represents the solution to Exercise 4.9 from the book:
+
+* Sweep 1000, ph = 0.25
+
+![Exercise 4.9 - Gambler's Problem (Sweep 1000, ph = 0.25) - Values](images/Exercise-4.9-GamblersProblem-Values-1000-0.25.png)
+![Exercise 4.9 - Gambler's Problem (Sweep 1000, ph = 0.25) - Policy](images/Exercise-4.9-GamblersProblem-Policy-1000-0.25.png)
+
+* Sweep 1000, ph = 0.55
+
+![Exercise 4.9 - Gambler's Problem (Sweep 1000, ph = 0.55) - Values](images/Exercise-4.9-GamblersProblem-Values-1000-0.55.png)
+![Exercise 4.9 - Gambler's Problem (Sweep 1000, ph = 0.55) - Policy](images/Exercise-4.9-GamblersProblem-Policy-1000-0.55.png)
