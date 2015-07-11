@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "chapter05", "chapter05", "{
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Blackjack", "chapter05\Blackjack\Blackjack.fsproj", "{2ED7CC59-9EE6-4D07-959F-5712863C3367}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SolvingBlackjack", "chapter05\SolvingBlackjack\SolvingBlackjack.fsproj", "{A5D70643-69F4-4CB9-8575-BF6E23DFB0D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{2ED7CC59-9EE6-4D07-959F-5712863C3367}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ED7CC59-9EE6-4D07-959F-5712863C3367}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ED7CC59-9EE6-4D07-959F-5712863C3367}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5D70643-69F4-4CB9-8575-BF6E23DFB0D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5D70643-69F4-4CB9-8575-BF6E23DFB0D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5D70643-69F4-4CB9-8575-BF6E23DFB0D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5D70643-69F4-4CB9-8575-BF6E23DFB0D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,5 +70,6 @@ Global
 		{5152F79E-F4AF-45AC-BE1D-D69618BC0AB2} = {C7500817-6CFF-498B-8D7F-6CF9FD3B4B31}
 		{DCE93998-F17A-416F-B7B7-5DEEA533F0A1} = {C7500817-6CFF-498B-8D7F-6CF9FD3B4B31}
 		{2ED7CC59-9EE6-4D07-959F-5712863C3367} = {DC2C0607-6CD8-4215-8222-A4DDCC8388F9}
+		{A5D70643-69F4-4CB9-8575-BF6E23DFB0D7} = {DC2C0607-6CD8-4215-8222-A4DDCC8388F9}
 	EndGlobalSection
 EndGlobal
