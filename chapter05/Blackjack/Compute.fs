@@ -11,14 +11,18 @@ let playerStandsSoft = 20
 
 //-------------------------------------------------------------------------------------------------
 
+type Values<'T> =
+    { HardHand : 'T[,]
+      SoftHand : 'T[,] }
+
 type private Action =
     | Stand
     | Hit
 
 type private Outcome =
-    | Draw
     | Win
     | Lose
+    | Draw
 
 type private Hand =
     | Hard
@@ -39,10 +43,6 @@ type private Turn =
     | PlayerTurn of Table * State list
     | DealerTurn of Table * State list
     | Conclusion of Table * State list
-
-type Values<'T> =
-    { HardHand : 'T[,]
-      SoftHand : 'T[,] }
 
 //-------------------------------------------------------------------------------------------------
 
@@ -66,6 +66,13 @@ let private countHandForPlayer table =
     |> countHand
     |> fst
 
+let private computeState table =
+    let dealerFacingCount = table.DealerFacing |> Seq.exactlyOne
+    let playerFacingCount, hand = countHand table.PlayerFacing
+    { DealerFacingCount = dealerFacingCount
+      PlayerFacingCount = playerFacingCount
+      Hand = hand }
+
 let private policyDealer table =
     let cards = table.DealerHidden :: table.DealerFacing
     match countHand cards with
@@ -78,16 +85,9 @@ let private policyPlayer table =
     | count, Hard -> if (count >= playerStandsHard) then Stand else Hit
     | count, Soft -> if (count >= playerStandsSoft) then Stand else Hit
 
-let private computeState table =
-    let dealerFacingCount = table.DealerFacing |> Seq.exactlyOne
-    let playerFacingCount, hand = countHand table.PlayerFacing
-    { DealerFacingCount = dealerFacingCount
-      PlayerFacingCount = playerFacingCount
-      Hand = hand }
-
 //-------------------------------------------------------------------------------------------------
 
-let rec private playerTakesTurn random table states =
+let rec private playerTakesTurn table random states =
     let states = computeState table :: states
     match policyPlayer table with
     | Stand -> table, states
@@ -95,16 +95,16 @@ let rec private playerTakesTurn random table states =
         ->
         let card = takeCardFromDeck random
         let table = { table with PlayerFacing = card :: table.PlayerFacing }
-        playerTakesTurn random table states
+        playerTakesTurn table random states
 
-let rec private dealerTakesTurn random table =
+let rec private dealerTakesTurn table random =
     match policyDealer table with
     | Stand -> table
     | Hit
         ->
         let card = takeCardFromDeck random
         let table = { table with DealerFacing = card :: table.DealerFacing }
-        dealerTakesTurn random table
+        dealerTakesTurn table random
 
 let rec private play random = function
     | Deal
@@ -130,7 +130,7 @@ let rec private play random = function
 
     | PlayerTurn (table, states)
         ->
-        let table, states = playerTakesTurn random table states
+        let table, states = playerTakesTurn table random states
         let count = countHandForPlayer table
         if (count > 21) then
             states, Lose
@@ -139,7 +139,7 @@ let rec private play random = function
 
     | DealerTurn (table, states)
         ->
-        let table = dealerTakesTurn random table
+        let table = dealerTakesTurn table random
         let count = countHandForDealer table
         if (count > 21) then
             states, Win
@@ -157,15 +157,13 @@ let rec private play random = function
 
 //-------------------------------------------------------------------------------------------------
 
-let private executeOneEpisode random (values, counts) =
-
-    let states, outcome = play random Deal
+let private improveValues states outcome values counts =
 
     let outcome =
         match outcome with
-        | Draw ->  0.0
         | Win  -> +1.0
         | Lose -> -1.0
+        | Draw ->  0.0
 
     let values =
         { HardHand = Array2D.copy values.HardHand
@@ -176,10 +174,12 @@ let private executeOneEpisode random (values, counts) =
           SoftHand = Array2D.copy counts.SoftHand }
 
     let update dc pc (values : double[,]) (counts : int[,]) =
-        let n = counts.[dc, pc]
         let v = values.[dc, pc]
-        values.[dc, pc] <- v + ((outcome - v) / double (n + 1))
-        counts.[dc, pc] <- n + 1
+        let n = counts.[dc, pc]
+        let v' = v + ((outcome - v) / double (n + 1))
+        let n' = n + 1
+        values.[dc, pc] <- v'
+        counts.[dc, pc] <- n'
 
     let states = states |> List.filter (fun s -> s.PlayerFacingCount >= 12)
     let states = states |> List.filter (fun s -> s.PlayerFacingCount <= 21)
@@ -190,11 +190,20 @@ let private executeOneEpisode random (values, counts) =
         | Hard -> update dc pc values.HardHand counts.HardHand
         | Soft -> update dc pc values.SoftHand counts.SoftHand
 
+    values, counts
+
+//-------------------------------------------------------------------------------------------------
+
+let private executeOneEpisode random (values, counts) =
+
+    let states, outcome = play random <| Deal
+    let values, counts = improveValues states outcome values counts
+
     values, (values, counts)
 
 let generateResults random =
     
-    let minDealerCount = 1
+    let minDealerCount = 01
     let maxDealerCount = 10
     let minPlayerCount = 12
     let maxPlayerCount = 21

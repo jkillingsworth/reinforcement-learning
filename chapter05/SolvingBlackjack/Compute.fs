@@ -77,7 +77,7 @@ let private policyDealer table =
     | count, Hard -> if (count >= dealerStandsHard) then Stand else Hit
     | count, Soft -> if (count >= dealerStandsSoft) then Stand else Hit
 
-let private policyPlayer random table states policy =
+let private policyPlayer table random states policy =
     if List.length states = 0 then
         match Sample.discreteUniform 0 1 random with
         | 0 -> Stand
@@ -91,8 +91,8 @@ let private policyPlayer random table states policy =
 
 //-------------------------------------------------------------------------------------------------
 
-let rec private playerTakesTurn random table states policy =
-    let action = policyPlayer random table states policy
+let rec private playerTakesTurn table random states policy =
+    let action = policyPlayer table random states policy
     let states = (computeState table, action) :: states
     match action with
     | Stand -> table, states
@@ -100,21 +100,20 @@ let rec private playerTakesTurn random table states policy =
         ->
         let card = takeCardFromDeck random
         let table = { table with PlayerFacing = card :: table.PlayerFacing }
-        playerTakesTurn random table states policy
+        playerTakesTurn table random states policy
 
-let rec private dealerTakesTurn random table =
+let rec private dealerTakesTurn table random =
     match policyDealer table with
     | Stand -> table
     | Hit
         ->
         let card = takeCardFromDeck random
         let table = { table with DealerFacing = card :: table.DealerFacing }
-        dealerTakesTurn random table
+        dealerTakesTurn table random
 
 let rec private play random = function
     | Deal policy
         ->
-
         let dealerFacingCount = Sample.discreteUniform 01 10 random
         let playerFacingCount = Sample.discreteUniform 12 21 random
         let playerHasSoftHand = Sample.discreteUniform 0 1 random = 1
@@ -137,7 +136,7 @@ let rec private play random = function
 
     | PlayerTurn (table, states, policy)
         ->
-        let table, states = playerTakesTurn random table states policy
+        let table, states = playerTakesTurn table random states policy
         let count = countHandForPlayer table
         if (count > 21) then
             states, Lose
@@ -146,7 +145,7 @@ let rec private play random = function
 
     | DealerTurn (table, states)
         ->
-        let table = dealerTakesTurn random table
+        let table = dealerTakesTurn table random
         let count = countHandForDealer table
         if (count > 21) then
             states, Win
