@@ -4,6 +4,9 @@ open MathNet.Numerics.Distributions
 
 //-------------------------------------------------------------------------------------------------
 
+type Exploration = ExploringStarts | EpsilonGreedy of double
+
+let exploration = ExploringStarts
 let dealerStandsHard = 17
 let dealerStandsSoft = 17
 
@@ -78,7 +81,11 @@ let private policyDealer table =
     | count, Soft -> if (count >= dealerStandsSoft) then Stand else Hit
 
 let private policyPlayer table random states policy =
-    if List.length states = 0 then
+    let chooseRandomAction =
+        match exploration with
+        | ExploringStarts -> List.length states = 0
+        | EpsilonGreedy epsilon -> Sample.continuousUniform 0.0 1.0 random < epsilon
+    if chooseRandomAction then
         match Sample.discreteUniform 0 1 random with
         | 0 -> Stand
         | _ -> Hit
@@ -114,25 +121,45 @@ let rec private dealerTakesTurn table random =
 let rec private play random = function
     | Deal policy
         ->
-        let dealerFacingCount = Sample.discreteUniform 01 10 random
-        let playerFacingCount = Sample.discreteUniform 12 21 random
-        let playerHasSoftHand = Sample.discreteUniform 0 1 random = 1
+        if exploration = ExploringStarts then
+            let dealerFacingCount = Sample.discreteUniform 01 10 random
+            let playerFacingCount = Sample.discreteUniform 12 21 random
+            let playerHasSoftHand = Sample.discreteUniform 0 1 random = 1
 
-        let dealerCards = [ dealerFacingCount ]
-        let playerCards =
-            match if playerHasSoftHand then Soft else Hard with
-            | Hard when playerFacingCount = 21 -> [ 10; 05; 06 ]
-            | Hard -> [ playerFacingCount - 10; 10 ]
-            | Soft -> [ playerFacingCount - 11; 01 ]
+            let dealerCards = [ dealerFacingCount ]
+            let playerCards =
+                match if playerHasSoftHand then Soft else Hard with
+                | Hard when playerFacingCount = 21 -> [ 10; 05; 06 ]
+                | Hard -> [ playerFacingCount - 10; 10 ]
+                | Soft -> [ playerFacingCount - 11; 01 ]
 
-        let table =
-            { DealerHidden = takeCardFromDeck random
-              DealerFacing = dealerCards
-              PlayerFacing = playerCards }
+            let table =
+                { DealerHidden = takeCardFromDeck random
+                  DealerFacing = dealerCards
+                  PlayerFacing = playerCards }
 
-        let states = []
+            let states = []
 
-        play random <| PlayerTurn (table, states, policy)
+            play random <| PlayerTurn (table, states, policy)
+        else
+            let playerCard1 = takeCardFromDeck random
+            let dealerCard1 = takeCardFromDeck random
+            let playerCard2 = takeCardFromDeck random
+            let dealerCard2 = takeCardFromDeck random
+
+            let table =
+                { DealerHidden = dealerCard2
+                  DealerFacing = [ dealerCard1 ]
+                  PlayerFacing = [ playerCard1; playerCard2 ] }
+
+            let states = []
+            let playerCount = countHandForPlayer table
+            let dealerCount = countHandForDealer table
+
+            if (playerCount = 21) then
+                states, if (dealerCount = 21) then Draw else Win
+            else
+                play random <| PlayerTurn (table, states, policy)
 
     | PlayerTurn (table, states, policy)
         ->
