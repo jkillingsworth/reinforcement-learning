@@ -27,6 +27,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SolvingBlackjack", "chapter
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "OffPolicyEstimationOfBlackjackStateValue", "chapter05\OffPolicyEstimationOfBlackjackStateValue\OffPolicyEstimationOfBlackjackStateValue.fsproj", "{3B40FA63-4E9F-414E-99C7-065FA95AD77D}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "InfiniteVariance", "chapter05\InfiniteVariance\InfiniteVariance.fsproj", "{18DDF5A2-3025-4AB3-9AC2-8E8B97582437}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{3B40FA63-4E9F-414E-99C7-065FA95AD77D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B40FA63-4E9F-414E-99C7-065FA95AD77D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B40FA63-4E9F-414E-99C7-065FA95AD77D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18DDF5A2-3025-4AB3-9AC2-8E8B97582437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18DDF5A2-3025-4AB3-9AC2-8E8B97582437}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18DDF5A2-3025-4AB3-9AC2-8E8B97582437}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18DDF5A2-3025-4AB3-9AC2-8E8B97582437}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,5 +84,6 @@ Global
 		{2ED7CC59-9EE6-4D07-959F-5712863C3367} = {DC2C0607-6CD8-4215-8222-A4DDCC8388F9}
 		{A5D70643-69F4-4CB9-8575-BF6E23DFB0D7} = {DC2C0607-6CD8-4215-8222-A4DDCC8388F9}
 		{3B40FA63-4E9F-414E-99C7-065FA95AD77D} = {DC2C0607-6CD8-4215-8222-A4DDCC8388F9}
+		{18DDF5A2-3025-4AB3-9AC2-8E8B97582437} = {DC2C0607-6CD8-4215-8222-A4DDCC8388F9}
 	EndGlobalSection
 EndGlobal
