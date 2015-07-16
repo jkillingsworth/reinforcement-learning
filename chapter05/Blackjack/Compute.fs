@@ -159,7 +159,7 @@ let rec private play random = function
 
 let private improveValues states outcome values counts =
 
-    let outcome =
+    let reward =
         match outcome with
         | Win  -> +1.0
         | Lose -> -1.0
@@ -176,7 +176,7 @@ let private improveValues states outcome values counts =
     let update dc pc (values : double[,]) (counts : int[,]) =
         let v = values.[dc, pc]
         let n = counts.[dc, pc]
-        let v' = v + ((outcome - v) / double (n + 1))
+        let v' = v + ((reward - v) / double (n + 1))
         let n' = n + 1
         values.[dc, pc] <- v'
         counts.[dc, pc] <- n'
