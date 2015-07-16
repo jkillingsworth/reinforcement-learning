@@ -29,3 +29,15 @@ This is a reproduction of Figure 5.5 from the book:
 
 ![Figure 5.5 - Solving Blackjack (Policy) - Hard Hand](images/Figure-5.5-SolvingBlackjack-HardHand-Policy.png)
 ![Figure 5.5 - Solving Blackjack (Policy) - Soft Hand](images/Figure-5.5-SolvingBlackjack-SoftHand-Policy.png)
+
+#### Off-policy Estimation of a Blackjack State Value
+
+This is a reproduction of Figure 5.7 from the book:
+
+![Figure 5.7 - Off-policy Estimation of a Blackjack State Value](images/Figure-5.7-OffPolicyEstimationOfBlackjackStateValue.png)
+
+#### Infinite Variance
+
+This is a reproduction of Figure 5.8 from the book:
+
+![Figure 5.8 - Infinite Variance](images/Figure-5.8-InfiniteVariance.png)
