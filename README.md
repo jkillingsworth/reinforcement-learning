@@ -4,14 +4,14 @@ This is a collection of notes and examples on reinforcement learning. These are 
 
 ## Contents
 
-The following notes and examples are available in this repository:
+The following notes and examples are contained in this repository:
 
 #### Chapter 2 - Multi-arm Bandits
 
 * [Notes](chapter02/NotesChapter02.pdf)
-* [Epsilon Greedy Process](chapter02#epsilon-greedy-process)
+* [Epsilon Greedy](chapter02#epsilon-greedy)
 * [Upper Confidence Bound](chapter02#upper-confidence-bound)
-* [Gradient Ascent Bandit](chapter02#gradient-ascent-bandit)
+* [Gradient Ascent](chapter02#gradient-ascent)
 
 #### Chapter 3 - Finite Markov Decision Processes
 
