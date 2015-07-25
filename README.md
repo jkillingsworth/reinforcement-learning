@@ -9,27 +9,27 @@ The following notes and examples are contained in this repository:
 #### Chapter 2 - Multi-arm Bandits
 
 * [Notes](chapter02/NotesChapter02.pdf)
-* [Epsilon Greedy](chapter02#epsilon-greedy)
-* [Upper Confidence Bound](chapter02#upper-confidence-bound)
-* [Gradient Ascent](chapter02#gradient-ascent)
+* [Epsilon Greedy](chapter02#user-content-epsilon-greedy)
+* [Upper Confidence Bound](chapter02#user-content-upper-confidence-bound)
+* [Gradient Ascent](chapter02#user-content-gradient-ascent)
 
 #### Chapter 3 - Finite Markov Decision Processes
 
 * [Notes](chapter03/NotesChapter03.pdf)
-* [Gridworld](chapter03#gridworld)
+* [Gridworld](chapter03#user-content-gridworld)
 
 #### Chapter 4 - Dynamic Programming
 
 * [Notes](chapter04/NotesChapter04.pdf)
-* [Gridworld](chapter04#gridworld)
-* [Jack's Car Rental](chapter04#jacks-car-rental)
-* [Gambler's Problem](chapter04#gamblers-problem)
+* [Gridworld](chapter04#user-content-gridworld)
+* [Jack's Car Rental](chapter04#user-content-jacks-car-rental)
+* [Gambler's Problem](chapter04#user-content-gamblers-problem)
 
 #### Chapter 5 - Monte Carlo Methods
 
 * [Notes](chapter05/NotesChapter05.pdf)
-* [Blackjack](chapter05#blackjack)
-* [Solving Blackjack](chapter05#solving-blackjack)
-* [Off-policy Estimation of a Blackjack State Value](chapter05#off-policy-estimation-of-a-blackjack-state-value)
-* [Infinite Variance](chapter05#infinite-variance)
-* [Racetrack](chapter05#racetrack)
+* [Blackjack](chapter05#user-content-blackjack)
+* [Solving Blackjack](chapter05#user-content-solving-blackjack)
+* [Off-policy Estimation of a Blackjack State Value](chapter05#user-content-off-policy-estimation-of-a-blackjack-state-value)
+* [Infinite Variance](chapter05#user-content-infinite-variance)
+* [Racetrack](chapter05#user-content-racetrack)
