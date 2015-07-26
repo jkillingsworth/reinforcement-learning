@@ -5,7 +5,7 @@ open System
 //-------------------------------------------------------------------------------------------------
 
 let random = Random()
-let values, policy = Compute.generateResults random |> Seq.nth 10000000
+let values, policy = Compute.generateResults random |> Seq.item 10000000
 
 Chart.renderValues @"..\..\..\SolvingBlackjack-HardHand-Values.png" values.HardHand "Hard Hand"
 Chart.renderValues @"..\..\..\SolvingBlackjack-SoftHand-Values.png" values.SoftHand "Soft Hand"

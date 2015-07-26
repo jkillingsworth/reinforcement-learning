@@ -6,7 +6,7 @@ open System
 
 let random = Random()
 
-let policy = Compute.computePolicy random |> Seq.nth 10000
+let policy = Compute.computePolicy random |> Seq.item 10000
 let traces = Compute.executePolicy random policy (6, 1)
 
 Chart.renderChart @"..\..\..\Racetrack.png" Compute.track traces

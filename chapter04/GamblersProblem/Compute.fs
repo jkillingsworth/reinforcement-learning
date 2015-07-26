@@ -37,7 +37,7 @@ let computeValues sweeps =
         seq { yield x; yield! x |> Seq.unfold (f >> pairResult) }
 
     generate executeOneStep values
-    |> Seq.nth sweeps
+    |> Seq.item sweeps
 
 let computePolicy values =
 
