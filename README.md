@@ -33,3 +33,7 @@ The following notes and examples are contained in this repository:
 * [Off-policy Estimation of a Blackjack State Value](chapter05#user-content-off-policy-estimation-of-a-blackjack-state-value)
 * [Infinite Variance](chapter05#user-content-infinite-variance)
 * [Racetrack](chapter05#user-content-racetrack)
+
+#### Chapter 6 - Temporal-Difference Learning
+
+* [Random Walk](chapter06#user-content-random-walk)
