@@ -31,6 +31,10 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "InfiniteVariance", "chapter
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Racetrack", "chapter05\Racetrack\Racetrack.fsproj", "{BC446069-9953-465C-9BC0-4C38A9DFEC60}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "chapter06", "chapter06", "{2EA1C9D0-2340-462D-9D58-622A5ED24EC0}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RandomWalk", "chapter06\RandomWalk\RandomWalk.fsproj", "{82DC4D8C-505C-4A6E-AAFD-A31E64E00D34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +81,10 @@ Global
 		{BC446069-9953-465C-9BC0-4C38A9DFEC60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC446069-9953-465C-9BC0-4C38A9DFEC60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC446069-9953-465C-9BC0-4C38A9DFEC60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82DC4D8C-505C-4A6E-AAFD-A31E64E00D34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82DC4D8C-505C-4A6E-AAFD-A31E64E00D34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82DC4D8C-505C-4A6E-AAFD-A31E64E00D34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82DC4D8C-505C-4A6E-AAFD-A31E64E00D34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,5 +100,6 @@ Global
 		{D26D546C-BBB6-4530-A1CF-C88301FAB593} = {FE92FD34-49B0-4270-9D4A-83D38E038B86}
 		{CE2C7D03-B47B-4EED-AB7B-873C53AC3A59} = {FE92FD34-49B0-4270-9D4A-83D38E038B86}
 		{BC446069-9953-465C-9BC0-4C38A9DFEC60} = {FE92FD34-49B0-4270-9D4A-83D38E038B86}
+		{82DC4D8C-505C-4A6E-AAFD-A31E64E00D34} = {2EA1C9D0-2340-462D-9D58-622A5ED24EC0}
 	EndGlobalSection
 EndGlobal
