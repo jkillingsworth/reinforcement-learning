@@ -13,3 +13,9 @@ This is a reproduction of Figure 6.7 from the book:
 
 ![Figure 6.7 - Random Walk (Errors) - MC](images/Figure-6.7-RandomWalk-Errors-MC.png)
 ![Figure 6.7 - Random Walk (Errors) - TD](images/Figure-6.7-RandomWalk-Errors-TD.png)
+
+#### Random Walk under Batch Updating
+
+This is a reproduction of Figure 6.8 from the book:
+
+![Figure 6.8 - Random Walk under Batch Updating](images/Figure-6.8-RandomWalkUnderBatchUpdating.png)
