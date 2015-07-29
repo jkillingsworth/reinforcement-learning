@@ -125,14 +125,14 @@ let rec private driveTheTrack random explore policy state traces =
 
 let private improveValues traces (values : Values) (counts : Counts) =
 
-    let reward = traces |> List.map (fun (s, a, r) -> r) |> List.sum
+    let outcome = traces |> List.map (fun (s, a, r) -> r) |> List.sum
 
     let updateValues (state, action, _) =
         let px, py, vx, vy = state
         let ax, ay = action
         let v = values.[px, py, vx, vy].[ax + 1, ay + 1]
         let n = counts.[px, py, vx, vy].[ax + 1, ay + 1]
-        let v' = v + ((double reward - v) / double (n + 1))
+        let v' = v + ((double outcome - v) / double (n + 1))
         let n' = n + 1
         values.[px, py, vx, vy].[ax + 1, ay + 1] <- v'
         counts.[px, py, vx, vy].[ax + 1, ay + 1] <- n'
@@ -148,8 +148,6 @@ let private improvePolicy traces (values : Values) (policy : Policy) =
         policy.[px, py, vx, vy] <- action
 
     traces |> List.iter updatePolicy
-
-//-------------------------------------------------------------------------------------------------
 
 let private executeOneEpisode random startPositions (policy, values, counts) =
     
@@ -167,6 +165,8 @@ let private executeOneEpisode random startPositions (policy, values, counts) =
     improvePolicy traces values policy
 
     (policy, values, counts)
+
+//-------------------------------------------------------------------------------------------------
 
 let computePolicy random =
 

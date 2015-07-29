@@ -4,7 +4,7 @@ open MathNet.Numerics.Distributions
 
 //-------------------------------------------------------------------------------------------------
 
-let steps = 100000
+let plays = 100000
 let tasks = 6
 
 //-------------------------------------------------------------------------------------------------
@@ -45,14 +45,14 @@ let private policyMu = function
     | Back -> 0.5
     | End  -> 0.5
 
-let private mapRatioReward states =
+let private mapRhoOutcomes states =
     
-    let folder (rho, reward) (s, a, r) =
+    let folder (rho, outcome) (s, a, r) =
         let pi = policyPi a
         let mu = policyMu a
         let rho = rho * (pi / mu)
-        let reward = reward + r
-        rho, reward
+        let outcome = outcome + r
+        rho, outcome
 
     states |> Seq.fold folder (1.0, 0.0)
 
@@ -68,11 +68,11 @@ let private mapStateValues (numerator, denominator) =
 
 let private executeOneTask random _ =
     seq { while true do yield play random [] }
-    |> Seq.map mapRatioReward
+    |> Seq.map mapRhoOutcomes
     |> Seq.scan computeSums (0.0, 0.0)
     |> Seq.map mapStateValues
     |> Seq.skip 1
-    |> Seq.take steps
+    |> Seq.take plays
     |> Seq.toArray
 
 let computeResults random =

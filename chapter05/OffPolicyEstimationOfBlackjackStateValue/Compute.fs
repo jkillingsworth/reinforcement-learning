@@ -4,6 +4,9 @@ open MathNet.Numerics.Distributions
 
 //-------------------------------------------------------------------------------------------------
 
+let plays = 1000
+let tasks = 100
+
 let dealerStandsHard = 17
 let dealerStandsSoft = 17
 let playerStandsHard = 20
@@ -12,9 +15,6 @@ let playerStandsSoft = 20
 let stateDealerFacing = [ 2 ]
 let statePlayerFacing = [ 2; 1 ]
 let stateValue = -0.27726
-
-let steps = 1000
-let tasks = 100
 
 //-------------------------------------------------------------------------------------------------
 
@@ -178,9 +178,9 @@ let private policyPlayerMu = function
     | state, Stand -> 0.5
     | state, Hit   -> 0.5
 
-let private mapRatioReward (states, outcome) =
+let private mapRhoOutcomes (states, outcome) =
 
-    let reward =
+    let outcome =
         match outcome with
         | Win  -> +1.0
         | Lose -> -1.0
@@ -193,11 +193,11 @@ let private mapRatioReward (states, outcome) =
 
     let rho = states |> Seq.fold folder 1.0
 
-    rho, reward
+    rho, outcome
 
-let private computeSums (numerator, denominatorOrdinary, denominatorWeighted) (rho, reward) =
+let private computeSums (numerator, denominatorOrdinary, denominatorWeighted) (rho, outcome) =
 
-    let numerator = numerator + (rho * reward)
+    let numerator = numerator + (rho * outcome)
     let denominatorOrdinary = denominatorOrdinary + 1.0
     let denominatorWeighted = denominatorWeighted + rho
 
@@ -218,11 +218,11 @@ let private mapStateValues (numerator, denominatorOrdinary, denominatorWeighted)
 
 let private executeOneTask random _ =
     seq { while true do yield play random <| Deal }
-    |> Seq.map mapRatioReward
+    |> Seq.map mapRhoOutcomes
     |> Seq.scan computeSums (0.0, 0.0, 0.0)
     |> Seq.map mapStateValues
     |> Seq.skip 1
-    |> Seq.take steps
+    |> Seq.take plays
     |> Array.ofSeq
     |> Array.unzip
 
@@ -238,7 +238,7 @@ let computeResults random =
         |> Array.init tasks
         |> Array.unzip
 
-    let ordinary = Array.init steps (computeMeanSquareError ordinarys)
-    let weighted = Array.init steps (computeMeanSquareError weighteds)
+    let ordinary = Array.init plays (computeMeanSquareError ordinarys)
+    let weighted = Array.init plays (computeMeanSquareError weighteds)
 
     ordinary, weighted

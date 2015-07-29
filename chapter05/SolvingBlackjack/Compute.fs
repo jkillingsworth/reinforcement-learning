@@ -192,7 +192,7 @@ let rec private play random = function
 
 let private improveValues states outcome values counts =
     
-    let reward =
+    let outcome =
         match outcome with
         | Win  -> +1.0
         | Lose -> -1.0
@@ -209,7 +209,7 @@ let private improveValues states outcome values counts =
     let update dc pc action (values : Map<Action, double>[,]) (counts : Map<Action, int>[,]) =
         let v = values.[dc, pc].[action]
         let n = counts.[dc, pc].[action]
-        let v' = v + ((reward - v) / double (n + 1))
+        let v' = v + ((outcome - v) / double (n + 1))
         let n' = n + 1
         values.[dc, pc] <- values.[dc, pc] |> Map.add action v'
         counts.[dc, pc] <- counts.[dc, pc] |> Map.add action n'
@@ -246,8 +246,6 @@ let private improvePolicy states outcome values policy =
 
     policy
 
-//-------------------------------------------------------------------------------------------------
-
 let private executeOneEpisode random ((values, policy), counts) =
 
     let states, outcome = play random <| Deal policy
@@ -255,6 +253,8 @@ let private executeOneEpisode random ((values, policy), counts) =
     let policy = improvePolicy states outcome values policy
 
     (values, policy), ((values, policy), counts)
+
+//-------------------------------------------------------------------------------------------------
 
 let generateResults random =
 

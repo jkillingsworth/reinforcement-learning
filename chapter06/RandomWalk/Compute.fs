@@ -4,6 +4,9 @@ open MathNet.Numerics.Distributions
 
 //-------------------------------------------------------------------------------------------------
 
+let plays = 100
+let tasks = 100
+
 let initialValue = 0.5
 
 let trueValues =
@@ -12,9 +15,6 @@ let trueValues =
        3.0 / 6.0
        4.0 / 6.0
        5.0 / 6.0 |]
-
-let plays = 100
-let tasks = 100
 
 //-------------------------------------------------------------------------------------------------
 
@@ -72,17 +72,11 @@ let private executeOneStep random = function
         let reward', state' = nextState action state
         Some ((state, reward', state'), state')
 
-let private executeOneEpisode random =
-    let initialState = C
-    List.unfold (executeOneStep random) initialState
-
 //-------------------------------------------------------------------------------------------------
 
-let private executeOneEpisodeMC random alpha values =
+let private improveValuesMC alpha (values : double[]) steps =
 
-    let steps = executeOneEpisode random
-    let values = Array.copy values
-    let outcome = steps |> List.sumBy (fun (s, r', s') -> r')
+    let outcome = Array.sumBy (fun (s, r', s') -> r') steps
 
     for (state, reward', state') in steps do
         let i = index state
@@ -91,10 +85,7 @@ let private executeOneEpisodeMC random alpha values =
 
     values
 
-let private executeOneEpisodeTD random alpha values =
-
-    let steps = executeOneEpisode random
-    let values = Array.copy values
+let private improveValuesTD alpha (values : double[]) steps =
 
     for (state, reward', state') in steps do
         let i = index state
@@ -104,9 +95,16 @@ let private executeOneEpisodeTD random alpha values =
 
     values
 
+let private executeOneEpisode random improveValues values =
+
+    let initialState = C
+    let steps = Array.unfold (executeOneStep random) initialState
+    let values = Array.copy values
+    improveValues values steps
+
 //-------------------------------------------------------------------------------------------------
 
-let private computeValues random alpha executeOneEpisode =
+let private computeValues random improveValues =
 
     let values = Array.create 5 initialValue
 
@@ -114,16 +112,11 @@ let private computeValues random alpha executeOneEpisode =
     let generate f x =
         seq { yield x; yield! x |> Seq.unfold (f >> pairResult) }
 
-    values |> generate (executeOneEpisode random alpha)
+    values |> generate (executeOneEpisode random improveValues)
 
-let computeValuesMC random alpha = computeValues random alpha executeOneEpisodeMC
-let computeValuesTD random alpha = computeValues random alpha executeOneEpisodeTD
+let private executeOneTask random improveValues _ =
 
-//-------------------------------------------------------------------------------------------------
-
-let private executeOneTask random alpha executeOneEpisode _ =
-
-    computeValues random alpha executeOneEpisode
+    computeValues random improveValues
     |> Seq.take plays
     |> Seq.toArray
 
@@ -136,12 +129,16 @@ let private computeRootMeanSquareError (tasks : double[][][]) i =
     |> Seq.map (sqrt)
     |> Seq.average
 
-let private computeErrors random alpha executeOneEpisode =
+let private computeErrors random improveValues =
 
-    executeOneTask random alpha executeOneEpisode
+    executeOneTask random improveValues
     |> Array.init tasks
     |> computeRootMeanSquareError
     |> Array.init plays
 
-let computeErrorsMC random alpha = computeErrors random alpha executeOneEpisodeMC
-let computeErrorsTD random alpha = computeErrors random alpha executeOneEpisodeTD
+//-------------------------------------------------------------------------------------------------
+
+let computeValuesMC random alpha = computeValues random (improveValuesMC alpha)
+let computeValuesTD random alpha = computeValues random (improveValuesTD alpha)
+let computeErrorsMC random alpha = computeErrors random (improveValuesMC alpha)
+let computeErrorsTD random alpha = computeErrors random (improveValuesTD alpha)

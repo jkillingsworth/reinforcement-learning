@@ -41,7 +41,7 @@ let renderChart path data =
     axis.Title <- "Episodes"
     axis.Position <- AxisPosition.Bottom
     axis.Minimum <- 1.0 - 0.1
-    axis.Maximum <- double Compute.steps
+    axis.Maximum <- double Compute.plays
     axis.MajorGridlineColor <- OxyColors.LightGray
     axis.MajorGridlineStyle <- LineStyle.Dot
     axis.MinorGridlineColor <- OxyColors.LightGray

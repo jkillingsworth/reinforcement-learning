@@ -4,6 +4,9 @@ open MathNet.Numerics.Distributions
 
 //-------------------------------------------------------------------------------------------------
 
+let plays = 100
+let tasks = 100
+
 let initialValue = 0.0
 
 let trueValues =
@@ -12,9 +15,6 @@ let trueValues =
        3.0 / 6.0
        4.0 / 6.0
        5.0 / 6.0 |]
-
-let plays = 100
-let tasks = 100
 
 let theta = 0.0001
 
@@ -156,6 +156,8 @@ let private computeErrors random improveValues =
     |> Array.init tasks
     |> computeRootMeanSquareError
     |> Array.init plays
+
+//-------------------------------------------------------------------------------------------------
 
 let computeErrorsMC random alpha = computeErrors random (improveValuesMC alpha)
 let computeErrorsTD random alpha = computeErrors random (improveValuesTD alpha)
