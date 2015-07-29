@@ -37,3 +37,4 @@ The following notes and examples are contained in this repository:
 #### Chapter 6 - Temporal-Difference Learning
 
 * [Random Walk](chapter06#user-content-random-walk)
+* [Random Walk under Batch Updating](chapter06#user-content-random-walk-under-batch-updating)
