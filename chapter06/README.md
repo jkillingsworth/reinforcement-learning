@@ -19,3 +19,10 @@ This is a reproduction of Figure 6.7 from the book:
 This is a reproduction of Figure 6.8 from the book:
 
 ![Figure 6.8 - Random Walk under Batch Updating](images/Figure-6.8-RandomWalkUnderBatchUpdating.png)
+
+#### Windy Gridworld
+
+This is a reproduction of Figure 6.11 from the book:
+
+![Figure 6.11 - Windy Gridworld - Stats](images/Figure-6.11-WindyGridworld-Stats.png)
+![Figure 6.11 - Windy Gridworld - Route](images/Figure-6.11-WindyGridworld-Route.png)

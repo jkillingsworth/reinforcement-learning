@@ -38,3 +38,4 @@ The following notes and examples are contained in this repository:
 
 * [Random Walk](chapter06#user-content-random-walk)
 * [Random Walk under Batch Updating](chapter06#user-content-random-walk-under-batch-updating)
+* [Windy Gridworld](chapter06#user-content-windy-gridworld)
