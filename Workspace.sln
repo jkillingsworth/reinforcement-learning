@@ -37,6 +37,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RandomWalk", "chapter06\Ran
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RandomWalkUnderBatchUpdating", "chapter06\RandomWalkUnderBatchUpdating\RandomWalkUnderBatchUpdating.fsproj", "{8070141D-C725-42FC-83CB-0707F407AE54}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "WindyGridworld", "chapter06\WindyGridworld\WindyGridworld.fsproj", "{3DDACB11-1A76-406D-A9DD-DD23D0342A14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{8070141D-C725-42FC-83CB-0707F407AE54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8070141D-C725-42FC-83CB-0707F407AE54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8070141D-C725-42FC-83CB-0707F407AE54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DDACB11-1A76-406D-A9DD-DD23D0342A14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DDACB11-1A76-406D-A9DD-DD23D0342A14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DDACB11-1A76-406D-A9DD-DD23D0342A14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DDACB11-1A76-406D-A9DD-DD23D0342A14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,5 +114,6 @@ Global
 		{BC446069-9953-465C-9BC0-4C38A9DFEC60} = {FE92FD34-49B0-4270-9D4A-83D38E038B86}
 		{82DC4D8C-505C-4A6E-AAFD-A31E64E00D34} = {2EA1C9D0-2340-462D-9D58-622A5ED24EC0}
 		{8070141D-C725-42FC-83CB-0707F407AE54} = {2EA1C9D0-2340-462D-9D58-622A5ED24EC0}
+		{3DDACB11-1A76-406D-A9DD-DD23D0342A14} = {2EA1C9D0-2340-462D-9D58-622A5ED24EC0}
 	EndGlobalSection
 EndGlobal
