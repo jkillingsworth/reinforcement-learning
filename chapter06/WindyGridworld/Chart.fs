@@ -80,7 +80,11 @@ let renderRoute path states =
 
     let model = PlotModel()
 
-    model.Padding <- OxyThickness(0.0, 0.0, 1.0, 1.0)
+    model.LegendPlacement <- LegendPlacement.Outside
+    model.LegendPosition <- LegendPosition.LeftTop
+    model.LegendTitle <- "Moves"
+    model.LegendTitleFontWeight <- FontWeights.Normal
+    model.Padding <- OxyThickness(2.0, 0.0, 1.0, 1.0)
     model.PlotType <- PlotType.Cartesian
 
     let colorStart = OxyColor.FromArgb(127uy, 127uy, 127uy, 127uy)
@@ -138,6 +142,7 @@ let renderRoute path states =
     model.Series.Add(series)
 
     let series = LineSeries()
+    series.Title <- sprintf "%i" (List.length states - 1)
     series.Color <- OxyColors.Red
     series.StrokeThickness <- 2.0
     states
@@ -165,4 +170,4 @@ let renderRoute path states =
     annotationPoint "G" pointGoal
 
     let scale = 30
-    model |> exportToPng path (cols * scale) (rows * scale)
+    model |> exportToPng path ((cols * scale) + 70) (rows * scale)
