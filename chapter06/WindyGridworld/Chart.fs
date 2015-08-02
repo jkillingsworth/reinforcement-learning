@@ -66,7 +66,7 @@ let renderStats path counts =
 
     model |> exportToPng path 700 400
 
-let renderRoute path traces =
+let renderRoute path states =
 
     let rows = Compute.cells |> Array2D.length2
     let cols = Compute.cells |> Array2D.length1
@@ -140,7 +140,7 @@ let renderRoute path traces =
     let series = LineSeries()
     series.Color <- OxyColors.Red
     series.StrokeThickness <- 2.0
-    traces
+    states
     |> List.mapi (fun i (x, y) -> DataPoint(0.5 + double x, 0.5 + double y))
     |> List.iter series.Points.Add
     model.Series.Add(series)

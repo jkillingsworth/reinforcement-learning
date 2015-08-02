@@ -24,5 +24,19 @@ This is a reproduction of Figure 6.8 from the book:
 
 This is a reproduction of Figure 6.11 from the book:
 
-![Figure 6.11 - Windy Gridworld - Stats](images/Figure-6.11-WindyGridworld-Stats.png)
-![Figure 6.11 - Windy Gridworld - Route](images/Figure-6.11-WindyGridworld-Route.png)
+* Standard moves
+
+![Figure 6.11 - Windy Gridworld (Stats) - Standard Moves](images/Figure-6.11-WindyGridworld-Stats-StandardMoves.png)
+![Figure 6.11 - Windy Gridworld (Route) - Standard Moves](images/Figure-6.11-WindyGridworld-Route-StandardMoves.png)
+
+This represents the solution to Exercise 6.6 from the book:
+
+* King's moves
+
+![Exercise 6.6 - Windy Gridworld (Stats) - King's Moves](images/Exercise-6.6-WindyGridworld-Stats-KingsMoves.png)
+![Exercise 6.6 - Windy Gridworld (Route) - King's Moves](images/Exercise-6.6-WindyGridworld-Route-KingsMoves.png)
+
+* King's moves with drift
+
+![Exercise 6.6 - Windy Gridworld (Stats) - King's Moves with Drift](images/Exercise-6.6-WindyGridworld-Stats-KingsMovesWithDrift.png)
+![Exercise 6.6 - Windy Gridworld (Route) - King's Moves with Drift](images/Exercise-6.6-WindyGridworld-Route-KingsMovesWithDrift.png)

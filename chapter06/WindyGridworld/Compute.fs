@@ -4,21 +4,31 @@ open MathNet.Numerics.Distributions
 
 //-------------------------------------------------------------------------------------------------
 
-type Values =
-    double[,,]
-
-type State =
-    (int * int)
+type ActionSet =
+    | StandardMoves
+    | KingsMoves
+    | KingsMovesWithDrift
 
 type Action =
     | North
     | South
     | East
     | West
+    | NorthEast
+    | NorthWest
+    | SouthEast
+    | SouthWest
+    | Drift
 
 type Cell =
     | WS of int
     | Goal
+
+type Values =
+    double[,,]
+
+type State =
+    (int * int)
 
 //-------------------------------------------------------------------------------------------------
 
@@ -47,11 +57,17 @@ let alpha = 0.5
 let epsilon = 0.1
 let reward = -1.0
 
+let actionSet = StandardMoves
+
 //-------------------------------------------------------------------------------------------------
 
-let private actions = [| North; South; East; West |]
+let private actions =
+    match actionSet with
+    | StandardMoves       -> [| North; South; East; West |]
+    | KingsMoves          -> [| North; South; East; West; NorthEast; NorthWest; SouthEast; SouthWest |]
+    | KingsMovesWithDrift -> [| North; South; East; West; NorthEast; NorthWest; SouthEast; SouthWest; Drift |]
 
-let private selectAction random explore (values : double[,,]) (x, y) =
+let private selectAction random explore (values : Values) (x, y) =
 
     let explore = explore && Sample.continuousUniform 0.0 1.0 random < epsilon
     if (explore) then
@@ -84,10 +100,15 @@ let private copyValues values =
 //-------------------------------------------------------------------------------------------------
 
 let private moveOffset = function
-    | North -> (0, +1)
-    | South -> (0, -1)
-    | East  -> (+1, 0)
-    | West  -> (-1, 0)
+    | North     -> ( 0, +1)
+    | South     -> ( 0, -1)
+    | East      -> (+1,  0)
+    | West      -> (-1,  0)
+    | NorthEast -> (+1, +1)
+    | NorthWest -> (-1, +1)
+    | SouthEast -> (+1, -1)
+    | SouthWest -> (-1, -1)
+    | Drift     -> ( 0,  0)
 
 let private windOffset (x, y) =
     match cells.[x, y] with
