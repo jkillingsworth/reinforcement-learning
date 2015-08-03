@@ -4,6 +4,10 @@ open MathNet.Numerics.Distributions
 
 //-------------------------------------------------------------------------------------------------
 
+type WindSpeed =
+    | Consistent
+    | Stochastic
+
 type ActionSet =
     | StandardMoves
     | KingsMoves
@@ -57,7 +61,8 @@ let alpha = 0.5
 let epsilon = 0.1
 let reward = -1.0
 
-let actionSet = StandardMoves
+let windSpeed = Stochastic
+let actionSet = KingsMovesWithDrift
 
 //-------------------------------------------------------------------------------------------------
 
@@ -110,15 +115,17 @@ let private moveOffset = function
     | SouthWest -> (-1, -1)
     | Drift     -> ( 0,  0)
 
-let private windOffset (x, y) =
-    match cells.[x, y] with
-    | WS w -> (0, w)
-    | Goal -> (0, 0)
+let private windOffset random (x, y) =
+    match cells.[x, y], windSpeed with
+    | Goal, _ -> (0, 0)
+    | WS 0, _ -> (0, 0)
+    | WS w, Consistent -> (0, w)
+    | WS w, Stochastic -> (0, w + Sample.discreteUniform -1 +1 random)
 
-let private nextState (x, y) action =
+let private nextState random (x, y) action =
 
     let move = moveOffset action
-    let wind = windOffset (x, y)
+    let wind = windOffset random (x, y)
     let x = x + fst move + fst wind
     let y = y + snd move + snd wind
     let x = min (max x 0) (Array2D.length1 cells - 1)
@@ -127,24 +134,24 @@ let private nextState (x, y) action =
 
     state'
 
-let private executeOneStep random learn (values, state, action) =
+let private executeOneStep random explore (values, state, action) =
 
     let values' = copyValues values
-    let state' = nextState state action
-    let action' = selectAction random learn values state'
+    let state' = nextState random state action
+    let action' = selectAction random explore values state'
 
-    if learn then
-        let qNext = getValue values state' action'
-        let q = getValue values state action
-        let q = q + alpha * (reward + (gamma * qNext) - q)
-        q |> setValue values' state action
+    let qNext = getValue values state' action'
+    let q = getValue values state action
+    let q = q + alpha * (reward + (gamma * qNext) - q)
+
+    q |> setValue values' state action
 
     values', state', action'
 
-let private executeOneEpisode random learn values start =
+let private executeOneEpisode random explore values start =
 
     let state = start
-    let action = selectAction random learn values state
+    let action = selectAction random explore values state
 
     let pairResult x = Some (x,x)
 
@@ -152,7 +159,7 @@ let private executeOneEpisode random learn values start =
         let x, y = state
         match cells.[x, y] with
         | Goal -> None
-        | WS w -> executeOneStep random learn (values, state, action) |> pairResult
+        | WS w -> executeOneStep random explore (values, state, action) |> pairResult
 
     (values, state, action) |> List.unfold generator
 
@@ -160,7 +167,7 @@ let private executeOneEpisode random learn values start =
 
 let generateResults random =
 
-    let learn = true
+    let explore = true
 
     let length1 = cells |> Array2D.length1
     let length2 = cells |> Array2D.length2
@@ -170,17 +177,17 @@ let generateResults random =
     let count = 0
 
     let generator (values, count) =
-        let results = executeOneEpisode random learn values start |> Seq.map (fun (v, s, a) -> v, count)
-        let values = results |> Seq.last |> fst
+        let output = executeOneEpisode random explore values start |> List.map (fun (v, s, a) -> v, count)
+        let values = output |> Seq.last |> fst
         let count = count + 1
-        Some (results, (values, count))
+        Some (output, (values, count))
 
     (values, count)
     |> Seq.unfold generator
     |> Seq.concat
 
-let calculateTraces random values =
+let computeTheRoute random values =
 
-    let learn = false
-    let states = executeOneEpisode random learn values start |> List.map (fun (v, s, a) -> s)
+    let explore = false
+    let states = executeOneEpisode random explore values start |> List.map (fun (v, s, a) -> s)
     start :: states

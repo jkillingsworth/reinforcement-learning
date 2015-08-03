@@ -40,3 +40,10 @@ This represents the solution to Exercise 6.6 from the book:
 
 ![Exercise 6.6 - Windy Gridworld (Stats) - King's Moves with Drift](images/Exercise-6.6-WindyGridworld-Stats-KingsMovesWithDrift.png)
 ![Exercise 6.6 - Windy Gridworld (Route) - King's Moves with Drift](images/Exercise-6.6-WindyGridworld-Route-KingsMovesWithDrift.png)
+
+This represents the solution to Exercise 6.7 from the book:
+
+* King's moves with drift and stochastic wind
+
+![Exercise 6.7 - Windy Gridworld (Stats) - Stochastic Wind](images/Exercise-6.7-WindyGridworld-Stats-StochasticWind.png)
+![Exercise 6.7 - Windy Gridworld (Route) - Stochastic Wind](images/Exercise-6.7-WindyGridworld-Route-StochasticWind.png)
