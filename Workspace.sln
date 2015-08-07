@@ -39,6 +39,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RandomWalkUnderBatchUpdatin
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "WindyGridworld", "chapter06\WindyGridworld\WindyGridworld.fsproj", "{3DDACB11-1A76-406D-A9DD-DD23D0342A14}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CliffWalking", "chapter06\CliffWalking\CliffWalking.fsproj", "{3BE3431F-4B66-47E1-B50D-B51BE789B9E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,10 @@ Global
 		{3DDACB11-1A76-406D-A9DD-DD23D0342A14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DDACB11-1A76-406D-A9DD-DD23D0342A14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DDACB11-1A76-406D-A9DD-DD23D0342A14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BE3431F-4B66-47E1-B50D-B51BE789B9E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BE3431F-4B66-47E1-B50D-B51BE789B9E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BE3431F-4B66-47E1-B50D-B51BE789B9E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BE3431F-4B66-47E1-B50D-B51BE789B9E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,5 +121,6 @@ Global
 		{82DC4D8C-505C-4A6E-AAFD-A31E64E00D34} = {2EA1C9D0-2340-462D-9D58-622A5ED24EC0}
 		{8070141D-C725-42FC-83CB-0707F407AE54} = {2EA1C9D0-2340-462D-9D58-622A5ED24EC0}
 		{3DDACB11-1A76-406D-A9DD-DD23D0342A14} = {2EA1C9D0-2340-462D-9D58-622A5ED24EC0}
+		{3BE3431F-4B66-47E1-B50D-B51BE789B9E6} = {2EA1C9D0-2340-462D-9D58-622A5ED24EC0}
 	EndGlobalSection
 EndGlobal
