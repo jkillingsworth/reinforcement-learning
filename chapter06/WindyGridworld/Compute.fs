@@ -153,7 +153,7 @@ let private executeOneEpisode random explore values start =
     let state = start
     let action = selectAction random explore values state
 
-    let pairResult x = Some (x,x)
+    let pairResult x = Some (x, x)
 
     let generator (values, state, action) =
         let x, y = state

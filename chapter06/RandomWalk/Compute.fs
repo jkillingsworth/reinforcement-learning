@@ -108,7 +108,7 @@ let private computeValues random improveValues =
 
     let values = Array.create 5 initialValue
 
-    let pairResult x = Some (x,x)
+    let pairResult x = Some (x, x)
     let generate f x =
         seq { yield x; yield! x |> Seq.unfold (f >> pairResult) }
 

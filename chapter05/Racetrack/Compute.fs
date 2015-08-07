@@ -206,7 +206,7 @@ let computePolicy random =
         let action = actions.[Sample.discreteUniform 0 (actions.Length - 1) random]
         policy.[px, py, vx, vy] <- action
 
-    let pairResult x = Some (x,x)
+    let pairResult x = Some (x, x)
     let generate f x =
         seq { yield x; yield! x |> Seq.unfold (f >> pairResult) }
 

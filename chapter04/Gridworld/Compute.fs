@@ -109,7 +109,7 @@ let generateResults initialValue =
 
     let values = Array2D.init rows cols initializer
 
-    let pairResult x = Some (x,x)
+    let pairResult x = Some (x, x)
     let generate f x =
         seq { yield x; yield! x |> Seq.unfold (f >> pairResult) }
 

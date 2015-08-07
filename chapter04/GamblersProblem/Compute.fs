@@ -32,7 +32,7 @@ let computeValues sweeps =
     let initialize s = if s = goal then 1.0 else 0.0
     let values = Array.init (goal + 1) initialize
 
-    let pairResult x = Some (x,x)
+    let pairResult x = Some (x, x)
     let generate f x =
         seq { yield x; yield! x |> Seq.unfold (f >> pairResult) }
 

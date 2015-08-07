@@ -30,7 +30,7 @@ let private ema alpha values =
     |> Array.scan mapper value0
 
 let private smooth repeat f values =
-    let pairResult x = Some(x,x)
+    let pairResult x = Some (x, x)
     values
     |> Seq.unfold (f >> pairResult)
     |> Seq.item (repeat - 1)

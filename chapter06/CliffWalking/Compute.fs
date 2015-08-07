@@ -5,8 +5,8 @@ open MathNet.Numerics.Distributions
 //-------------------------------------------------------------------------------------------------
 
 type LearningMethod =
-    | Sarsa
     | QLearning
+    | Sarsa
 
 type Action =
     | North
@@ -129,7 +129,7 @@ module private QLearning =
         let state = start
         let action = selectAction random false values state
 
-        let pairResult x = Some (x,x)
+        let pairResult x = Some (x, x)
 
         let generator (values, state, action, reward) =
             let x, y = state
@@ -163,7 +163,7 @@ module private Sarsa =
         let state = start
         let action = selectAction random explore values state
 
-        let pairResult x = Some (x,x)
+        let pairResult x = Some (x, x)
 
         let generator (values, state, action, reward) =
             let x, y = state
@@ -197,9 +197,7 @@ let generateResults random learningMethod =
         let totals = output |> List.map (fun (v, s, a, r) -> r) |> List.sum
         (values, totals)
 
-    let pairResult x = Some (x,x)
-    let generate f x =
-        seq { yield! x |> Seq.unfold (f >> pairResult) }
+    let pairResult x = Some (x, x)
 
     Seq.unfold (generator >> pairResult) (values, totals)
 
