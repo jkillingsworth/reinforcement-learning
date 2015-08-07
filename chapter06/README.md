@@ -47,3 +47,17 @@ This represents the solution to Exercise 6.7 from the book:
 
 ![Exercise 6.7 - Windy Gridworld (Stats) - Stochastic Wind](images/Exercise-6.7-WindyGridworld-Stats-StochasticWind.png)
 ![Exercise 6.7 - Windy Gridworld (Route) - Stochastic Wind](images/Exercise-6.7-WindyGridworld-Route-StochasticWind.png)
+
+#### Cliff Walking
+
+This is a reproduction of Figure 6.13 from the book:
+
+![Figure 6.13 - Cliff Walking (Stats)](images/Figure-6.13-CliffWalking-Stats.png)
+
+* Q-learning
+
+![Figure 6.13 - Cliff Walking (Route) - Q-learning](images/Figure-6.13-CliffWalking-Route-QLearning.png)
+
+* Sarsa
+
+![Figure 6.13 - Cliff Walking (Route) - Sarsa](images/Figure-6.13-CliffWalking-Route-Sarsa.png)
